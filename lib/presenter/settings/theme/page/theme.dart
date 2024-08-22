@@ -23,7 +23,7 @@ final darkTheme = ThemeData(
   colorScheme: ColorScheme.dark(
     background: Colors.grey.shade900,
     primary: Colors.white,
-    secondary: Colors.grey.shade900,
+    secondary: Colors.grey,
     onBackground: Colors.white,
     onSurface: Colors.white,
   ),
@@ -40,7 +40,7 @@ final lightTheme = ThemeData(
   colorScheme: ColorScheme.light(
     background: Colors.grey.shade400,
     primary: Colors.black,
-    secondary: Colors.black,
+    secondary: Colors.white,
   )
 );
 

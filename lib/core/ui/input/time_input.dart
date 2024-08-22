@@ -2,12 +2,12 @@ part of '../ui.dart';
 
 class TimeInput extends StatefulWidget {
   final TextEditingController firstTimeController;
-  final TextEditingController secondTimeController;
+  //final TextEditingController secondTimeController;
 
   TimeInput({
     super.key,
     required this.firstTimeController,
-    required this.secondTimeController,
+    //required this.secondTimeController,
   });
 
   @override
@@ -21,9 +21,9 @@ class _TimeInputState extends State<TimeInput> {
       children: [
         TextFormField(
           controller: widget.firstTimeController,
-          validator: (value) => value!.isEmpty ? 'Введите время начала':null,
+          validator: (value) => value!.isEmpty ? 'Введите время':null,
           decoration: const InputDecoration(
-            labelText: 'Время начала',
+            labelText: 'Время',
             filled: true,
             prefixIcon: Icon(Icons.more_time),
             enabledBorder: OutlineInputBorder(
@@ -38,26 +38,26 @@ class _TimeInputState extends State<TimeInput> {
             _selectFirstTime();
           },
         ),
-        const SizedBox(height: 10),
-        TextFormField(
-          controller: widget.secondTimeController,
-          validator: (value) => value!.isEmpty ? 'Введите время конца':null,
-          decoration: const InputDecoration(
-            labelText: 'Время конца',
-            filled: true,
-            prefixIcon: Icon(Icons.more_time),
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide.none
-            ),
-            focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.blue)
-            ),
-          ),
-          readOnly: true,
-          onTap: () {
-            _selectSecondTime();
-          },
-        ),
+        //const SizedBox(height: 10),
+        // TextFormField(
+        //   controller: widget.secondTimeController,
+        //   validator: (value) => value!.isEmpty ? 'Введите время конца':null,
+        //   decoration: const InputDecoration(
+        //     labelText: 'Время конца',
+        //     filled: true,
+        //     prefixIcon: Icon(Icons.more_time),
+        //     enabledBorder: OutlineInputBorder(
+        //         borderSide: BorderSide.none
+        //     ),
+        //     focusedBorder: OutlineInputBorder(
+        //         borderSide: BorderSide(color: Colors.blue)
+        //     ),
+        //   ),
+        //   readOnly: true,
+        //   onTap: () {
+        //     _selectSecondTime();
+        //   },
+        // ),
       ],
     );
   }
@@ -80,24 +80,24 @@ class _TimeInputState extends State<TimeInput> {
     }
   }
 
-  Future<void> _selectSecondTime() async {
-    TimeOfDay? _secondTime = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-      initialEntryMode: TimePickerEntryMode.dial,
-      helpText: 'Выберите время',
-      confirmText: 'Окей',
-      cancelText: 'Отмена',
-    );
-    if (_secondTime != null) {
-      setState(() {
-        setState(() {
-          String formattedHour = _secondTime.hour.toString().padLeft(2, '0');
-          String formattedMinute = _secondTime.minute.toString().padLeft(2, '0');
-          widget.secondTimeController.text = '$formattedHour:$formattedMinute';
-        });
-      });
-    }
-  }
+  // Future<void> _selectSecondTime() async {
+  //   TimeOfDay? _secondTime = await showTimePicker(
+  //     context: context,
+  //     initialTime: TimeOfDay.now(),
+  //     initialEntryMode: TimePickerEntryMode.dial,
+  //     helpText: 'Выберите время',
+  //     confirmText: 'Окей',
+  //     cancelText: 'Отмена',
+  //   );
+  //   if (_secondTime != null) {
+  //     setState(() {
+  //       setState(() {
+  //         String formattedHour = _secondTime.hour.toString().padLeft(2, '0');
+  //         String formattedMinute = _secondTime.minute.toString().padLeft(2, '0');
+  //         widget.secondTimeController.text = '$formattedHour:$formattedMinute';
+  //       });
+  //     });
+  //   }
+  // }
 
 }

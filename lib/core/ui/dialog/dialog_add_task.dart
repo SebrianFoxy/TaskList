@@ -12,7 +12,6 @@ class _DialogAddTaskState extends State<DialogAddTask> {
   final TextEditingController _taskDescriptionController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _firstTimeController = TextEditingController();
-  final TextEditingController _secondTimeController = TextEditingController();
   
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,6 @@ class _DialogAddTaskState extends State<DialogAddTask> {
         onDismissCallback: (type) {
           _taskDescriptionController.clear();
           _firstTimeController.clear();
-          _secondTimeController.clear();
           _dateController.clear();
         },
         body: Padding(
@@ -50,7 +48,7 @@ class _DialogAddTaskState extends State<DialogAddTask> {
                     keyboardType: TextInputType.multiline,
                     minLines: 2,
                     maxLines: null,
-                    validator: (value) => value!.isEmpty ? 'Введите задачу':null,
+                    validator: (value) => value!.isEmpty ? 'Введите задачу' : null,
                     decoration: const InputDecoration(
                       border: InputBorder.none,
                       labelText: 'Задача',
@@ -73,7 +71,7 @@ class _DialogAddTaskState extends State<DialogAddTask> {
                 ),
                 TimeInput(
                   firstTimeController: _firstTimeController,
-                  secondTimeController: _secondTimeController,
+                  //secondTimeController: _secondTimeController,
                 ),
                 const SizedBox(
                   height: 10,
@@ -84,7 +82,6 @@ class _DialogAddTaskState extends State<DialogAddTask> {
                     ElevatedButton(onPressed: () {
                       if (
                       _firstTimeController.text.isEmpty ||
-                          _secondTimeController.text.isEmpty ||
                           _taskDescriptionController.text.isEmpty ||
                           _dateController.text.isEmpty)
                       {
@@ -97,11 +94,9 @@ class _DialogAddTaskState extends State<DialogAddTask> {
                               descriptionTask: _taskDescriptionController.text.toString(),
                               date: _dateController.text.toString(),
                               firstTime: _firstTimeController.text.toString(),
-                              secondTime: _secondTimeController.text.toString(),
                             )
                         );
                         _firstTimeController.clear();
-                        _secondTimeController.clear();
                         _taskDescriptionController.clear();
                         _dateController.clear();
                         Navigator.pop(context);
@@ -109,7 +104,6 @@ class _DialogAddTaskState extends State<DialogAddTask> {
                     }, child: const Text('Создать')),
                     ElevatedButton(onPressed: () {
                       _firstTimeController.clear();
-                      _secondTimeController.clear();
                       _taskDescriptionController.clear();
                       _dateController.clear();
                       Navigator.pop(context);

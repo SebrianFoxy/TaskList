@@ -1,3 +1,4 @@
+import 'package:task_manager_mobile/data/notification/notification_service/local_notification.dart';
 import 'package:task_manager_mobile/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -115,6 +116,9 @@ class _TaskListPageState extends State<TaskListPage> {
                         ),
                       ),
                     ),
+                    // ElevatedButton(onPressed: () async {
+                    //   NotificationService().checkPendingNotifications();
+                    // }, child: Text('Press')),
                     Expanded(
                       child: ListView.builder(
                         padding: const EdgeInsets.only(bottom: 12),
@@ -126,7 +130,6 @@ class _TaskListPageState extends State<TaskListPage> {
                               TaskCard(
                                 taskDescription: getTasks[index].task,
                                 firstTime: getTasks[index].firstTime,
-                                secondTime: getTasks[index].secondTime,
                                 id: getTasks[index].id,
                                 stateTask: getTasks[index].stateTask,
                                 onPressedChangeState: () {
@@ -155,25 +158,8 @@ class _TaskListPageState extends State<TaskListPage> {
       ),
       floatingActionButton: DialogAddTask(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: AnimatedBottomNavigationBar(
-        icons: iconList,
-        activeIndex: _selectedIndex,
-        gapLocation: GapLocation.center,
-        notchSmoothness: NotchSmoothness.softEdge,
-        activeColor: Colors.red,
-        backgroundColor: context.read<ThemeCubit>().state.brightness == Brightness.dark ? Colors.black : Colors.white,
-        onTap: (index) {
-          if (index == 0) {
-            context.goNamed(AppRoute.tasks.name);
-          }
-          else if (index == 1) {
-            context.goNamed(AppRoute.calendar.name);
-            context.read<CalendarListBloc>().add(const CalendarListEvent.fetch());
-          }
-          else if (index == 3) {
-            context.goNamed(AppRoute.settings.name);
-          }
-        },
+      bottomNavigationBar: MyNavigationBar(
+        selectIndex: _selectedIndex,
       ),
     );
   }

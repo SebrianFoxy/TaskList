@@ -8,7 +8,6 @@ class TaskListEvent with _$TaskListEvent {
     required String descriptionTask,
     required String date,
     required String firstTime,
-    required String secondTime,
   }) = _CreateTask;
 
   const factory TaskListEvent.deleteTask({

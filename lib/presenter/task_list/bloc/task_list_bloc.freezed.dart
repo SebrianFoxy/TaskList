@@ -19,8 +19,8 @@ mixin _$TaskListEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetch,
-    required TResult Function(String descriptionTask, String date,
-            String firstTime, String secondTime)
+    required TResult Function(
+            String descriptionTask, String date, String firstTime)
         createTask,
     required TResult Function(int id) deleteTask,
     required TResult Function(String? query) searchTask,
@@ -31,8 +31,7 @@ mixin _$TaskListEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetch,
-    TResult? Function(String descriptionTask, String date, String firstTime,
-            String secondTime)?
+    TResult? Function(String descriptionTask, String date, String firstTime)?
         createTask,
     TResult? Function(int id)? deleteTask,
     TResult? Function(String? query)? searchTask,
@@ -43,8 +42,7 @@ mixin _$TaskListEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetch,
-    TResult Function(String descriptionTask, String date, String firstTime,
-            String secondTime)?
+    TResult Function(String descriptionTask, String date, String firstTime)?
         createTask,
     TResult Function(int id)? deleteTask,
     TResult Function(String? query)? searchTask,
@@ -143,8 +141,8 @@ class _$FetchImpl implements _Fetch {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetch,
-    required TResult Function(String descriptionTask, String date,
-            String firstTime, String secondTime)
+    required TResult Function(
+            String descriptionTask, String date, String firstTime)
         createTask,
     required TResult Function(int id) deleteTask,
     required TResult Function(String? query) searchTask,
@@ -158,8 +156,7 @@ class _$FetchImpl implements _Fetch {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetch,
-    TResult? Function(String descriptionTask, String date, String firstTime,
-            String secondTime)?
+    TResult? Function(String descriptionTask, String date, String firstTime)?
         createTask,
     TResult? Function(int id)? deleteTask,
     TResult? Function(String? query)? searchTask,
@@ -173,8 +170,7 @@ class _$FetchImpl implements _Fetch {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetch,
-    TResult Function(String descriptionTask, String date, String firstTime,
-            String secondTime)?
+    TResult Function(String descriptionTask, String date, String firstTime)?
         createTask,
     TResult Function(int id)? deleteTask,
     TResult Function(String? query)? searchTask,
@@ -242,11 +238,7 @@ abstract class _$$CreateTaskImplCopyWith<$Res> {
           _$CreateTaskImpl value, $Res Function(_$CreateTaskImpl) then) =
       __$$CreateTaskImplCopyWithImpl<$Res>;
   @useResult
-  $Res call(
-      {String descriptionTask,
-      String date,
-      String firstTime,
-      String secondTime});
+  $Res call({String descriptionTask, String date, String firstTime});
 }
 
 /// @nodoc
@@ -263,7 +255,6 @@ class __$$CreateTaskImplCopyWithImpl<$Res>
     Object? descriptionTask = null,
     Object? date = null,
     Object? firstTime = null,
-    Object? secondTime = null,
   }) {
     return _then(_$CreateTaskImpl(
       descriptionTask: null == descriptionTask
@@ -278,10 +269,6 @@ class __$$CreateTaskImplCopyWithImpl<$Res>
           ? _value.firstTime
           : firstTime // ignore: cast_nullable_to_non_nullable
               as String,
-      secondTime: null == secondTime
-          ? _value.secondTime
-          : secondTime // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
@@ -292,8 +279,7 @@ class _$CreateTaskImpl implements _CreateTask {
   const _$CreateTaskImpl(
       {required this.descriptionTask,
       required this.date,
-      required this.firstTime,
-      required this.secondTime});
+      required this.firstTime});
 
   @override
   final String descriptionTask;
@@ -301,12 +287,10 @@ class _$CreateTaskImpl implements _CreateTask {
   final String date;
   @override
   final String firstTime;
-  @override
-  final String secondTime;
 
   @override
   String toString() {
-    return 'TaskListEvent.createTask(descriptionTask: $descriptionTask, date: $date, firstTime: $firstTime, secondTime: $secondTime)';
+    return 'TaskListEvent.createTask(descriptionTask: $descriptionTask, date: $date, firstTime: $firstTime)';
   }
 
   @override
@@ -318,14 +302,12 @@ class _$CreateTaskImpl implements _CreateTask {
                 other.descriptionTask == descriptionTask) &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.firstTime, firstTime) ||
-                other.firstTime == firstTime) &&
-            (identical(other.secondTime, secondTime) ||
-                other.secondTime == secondTime));
+                other.firstTime == firstTime));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, descriptionTask, date, firstTime, secondTime);
+      Object.hash(runtimeType, descriptionTask, date, firstTime);
 
   @JsonKey(ignore: true)
   @override
@@ -337,38 +319,36 @@ class _$CreateTaskImpl implements _CreateTask {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetch,
-    required TResult Function(String descriptionTask, String date,
-            String firstTime, String secondTime)
+    required TResult Function(
+            String descriptionTask, String date, String firstTime)
         createTask,
     required TResult Function(int id) deleteTask,
     required TResult Function(String? query) searchTask,
     required TResult Function(String? filter) filteredTasks,
     required TResult Function(int id, bool? stateTask) changeStateTask,
   }) {
-    return createTask(descriptionTask, date, firstTime, secondTime);
+    return createTask(descriptionTask, date, firstTime);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetch,
-    TResult? Function(String descriptionTask, String date, String firstTime,
-            String secondTime)?
+    TResult? Function(String descriptionTask, String date, String firstTime)?
         createTask,
     TResult? Function(int id)? deleteTask,
     TResult? Function(String? query)? searchTask,
     TResult? Function(String? filter)? filteredTasks,
     TResult? Function(int id, bool? stateTask)? changeStateTask,
   }) {
-    return createTask?.call(descriptionTask, date, firstTime, secondTime);
+    return createTask?.call(descriptionTask, date, firstTime);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetch,
-    TResult Function(String descriptionTask, String date, String firstTime,
-            String secondTime)?
+    TResult Function(String descriptionTask, String date, String firstTime)?
         createTask,
     TResult Function(int id)? deleteTask,
     TResult Function(String? query)? searchTask,
@@ -377,7 +357,7 @@ class _$CreateTaskImpl implements _CreateTask {
     required TResult orElse(),
   }) {
     if (createTask != null) {
-      return createTask(descriptionTask, date, firstTime, secondTime);
+      return createTask(descriptionTask, date, firstTime);
     }
     return orElse();
   }
@@ -430,13 +410,11 @@ abstract class _CreateTask implements TaskListEvent {
   const factory _CreateTask(
       {required final String descriptionTask,
       required final String date,
-      required final String firstTime,
-      required final String secondTime}) = _$CreateTaskImpl;
+      required final String firstTime}) = _$CreateTaskImpl;
 
   String get descriptionTask;
   String get date;
   String get firstTime;
-  String get secondTime;
   @JsonKey(ignore: true)
   _$$CreateTaskImplCopyWith<_$CreateTaskImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -507,8 +485,8 @@ class _$DeleteTaskImpl implements _DeleteTask {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetch,
-    required TResult Function(String descriptionTask, String date,
-            String firstTime, String secondTime)
+    required TResult Function(
+            String descriptionTask, String date, String firstTime)
         createTask,
     required TResult Function(int id) deleteTask,
     required TResult Function(String? query) searchTask,
@@ -522,8 +500,7 @@ class _$DeleteTaskImpl implements _DeleteTask {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetch,
-    TResult? Function(String descriptionTask, String date, String firstTime,
-            String secondTime)?
+    TResult? Function(String descriptionTask, String date, String firstTime)?
         createTask,
     TResult? Function(int id)? deleteTask,
     TResult? Function(String? query)? searchTask,
@@ -537,8 +514,7 @@ class _$DeleteTaskImpl implements _DeleteTask {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetch,
-    TResult Function(String descriptionTask, String date, String firstTime,
-            String secondTime)?
+    TResult Function(String descriptionTask, String date, String firstTime)?
         createTask,
     TResult Function(int id)? deleteTask,
     TResult Function(String? query)? searchTask,
@@ -670,8 +646,8 @@ class _$SearchTaskImpl implements _SearchTask {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetch,
-    required TResult Function(String descriptionTask, String date,
-            String firstTime, String secondTime)
+    required TResult Function(
+            String descriptionTask, String date, String firstTime)
         createTask,
     required TResult Function(int id) deleteTask,
     required TResult Function(String? query) searchTask,
@@ -685,8 +661,7 @@ class _$SearchTaskImpl implements _SearchTask {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetch,
-    TResult? Function(String descriptionTask, String date, String firstTime,
-            String secondTime)?
+    TResult? Function(String descriptionTask, String date, String firstTime)?
         createTask,
     TResult? Function(int id)? deleteTask,
     TResult? Function(String? query)? searchTask,
@@ -700,8 +675,7 @@ class _$SearchTaskImpl implements _SearchTask {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetch,
-    TResult Function(String descriptionTask, String date, String firstTime,
-            String secondTime)?
+    TResult Function(String descriptionTask, String date, String firstTime)?
         createTask,
     TResult Function(int id)? deleteTask,
     TResult Function(String? query)? searchTask,
@@ -833,8 +807,8 @@ class _$FilteredTasksImpl implements _FilteredTasks {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetch,
-    required TResult Function(String descriptionTask, String date,
-            String firstTime, String secondTime)
+    required TResult Function(
+            String descriptionTask, String date, String firstTime)
         createTask,
     required TResult Function(int id) deleteTask,
     required TResult Function(String? query) searchTask,
@@ -848,8 +822,7 @@ class _$FilteredTasksImpl implements _FilteredTasks {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetch,
-    TResult? Function(String descriptionTask, String date, String firstTime,
-            String secondTime)?
+    TResult? Function(String descriptionTask, String date, String firstTime)?
         createTask,
     TResult? Function(int id)? deleteTask,
     TResult? Function(String? query)? searchTask,
@@ -863,8 +836,7 @@ class _$FilteredTasksImpl implements _FilteredTasks {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetch,
-    TResult Function(String descriptionTask, String date, String firstTime,
-            String secondTime)?
+    TResult Function(String descriptionTask, String date, String firstTime)?
         createTask,
     TResult Function(int id)? deleteTask,
     TResult Function(String? query)? searchTask,
@@ -1006,8 +978,8 @@ class _$ChangeStateTaskImpl implements _ChangeStateTask {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetch,
-    required TResult Function(String descriptionTask, String date,
-            String firstTime, String secondTime)
+    required TResult Function(
+            String descriptionTask, String date, String firstTime)
         createTask,
     required TResult Function(int id) deleteTask,
     required TResult Function(String? query) searchTask,
@@ -1021,8 +993,7 @@ class _$ChangeStateTaskImpl implements _ChangeStateTask {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetch,
-    TResult? Function(String descriptionTask, String date, String firstTime,
-            String secondTime)?
+    TResult? Function(String descriptionTask, String date, String firstTime)?
         createTask,
     TResult? Function(int id)? deleteTask,
     TResult? Function(String? query)? searchTask,
@@ -1036,8 +1007,7 @@ class _$ChangeStateTaskImpl implements _ChangeStateTask {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetch,
-    TResult Function(String descriptionTask, String date, String firstTime,
-            String secondTime)?
+    TResult Function(String descriptionTask, String date, String firstTime)?
         createTask,
     TResult Function(int id)? deleteTask,
     TResult Function(String? query)? searchTask,

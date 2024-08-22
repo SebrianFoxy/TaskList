@@ -83,7 +83,6 @@ class _CalendarPageState extends State<CalendarPage> {
                             TaskCard(
                               taskDescription: getTasks[index].task,
                               firstTime: getTasks[index].firstTime,
-                              secondTime: getTasks[index].secondTime,
                               id: getTasks[index].id,
                               stateTask: getTasks[index].stateTask,
                               onPressedChangeState: () {
@@ -111,25 +110,8 @@ class _CalendarPageState extends State<CalendarPage> {
           );
         },
       ),
-      bottomNavigationBar: AnimatedBottomNavigationBar(
-        icons: iconList,
-        activeIndex: _selectedIndex,
-        gapLocation: GapLocation.center,
-        notchSmoothness: NotchSmoothness.softEdge,
-        activeColor: Colors.red,
-        backgroundColor: context.read<ThemeCubit>().state.brightness == Brightness.dark ? Colors.black : Colors.white,
-        onTap: (index) {
-          if (index == 0){
-            context.goNamed(AppRoute.tasks.name);
-            context.read<TaskListBloc>().add(const TaskListEvent.fetch());
-          }
-          else if (index == 1){
-            context.goNamed(AppRoute.calendar.name);
-          }
-          else if (index == 3) {
-            context.goNamed(AppRoute.settings.name);
-          }
-        },
+      bottomNavigationBar: MyNavigationBar(
+        selectIndex: _selectedIndex,
       ),
     );
   }

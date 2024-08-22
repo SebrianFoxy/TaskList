@@ -11,7 +11,6 @@ class Tasks extends Table {
   TextColumn get task => text()();
   TextColumn get date => text()();
   TextColumn get firstTime => text()();
-  TextColumn get secondTime => text()();
   BoolColumn get stateTask => boolean()();
 }
 

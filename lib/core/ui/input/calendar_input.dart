@@ -42,7 +42,7 @@ class _CalendarInputState extends State<CalendarInput> {
     DateTime? _picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2100),
       helpText: 'Выберите дату',
       cancelText: 'Отмена',

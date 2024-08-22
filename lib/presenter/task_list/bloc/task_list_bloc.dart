@@ -4,6 +4,7 @@ import 'dart:core';
 import 'package:meta/meta.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:task_manager_mobile/data/drift/drift_database.dart';
+import 'package:task_manager_mobile/data/notification/notification_service/local_notification.dart';
 
 part 'task_list_event.dart';
 part 'task_list_state.dart';
@@ -43,10 +44,22 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
               task: event.descriptionTask,
               date: event.date,
               firstTime: event.firstTime,
-              secondTime: event.secondTime,
               stateTask: true,
           )
       );
+      List<String> dateParts = event.date.split('-');
+      int year = int.parse(dateParts[0]);
+      int month = int.parse(dateParts[1]);
+      int day = int.parse(dateParts[2]);
+
+      List<String> timeParts = event.firstTime.split(':');
+      int hour = int.parse(timeParts[0]);
+      int minute = int.parse(timeParts[1]);
+
+      if (day != DateTime.now().day) {
+        NotificationService().scheduleNotification(year, month, day, hour, minute);
+        print('+ notification');
+      }
       add(TaskListEvent.filteredTasks(filter: filter));
     } catch (e) {
       emit(TaskListState.error(error: e));

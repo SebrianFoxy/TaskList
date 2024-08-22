@@ -3,13 +3,12 @@ part of '../ui.dart';
 class TaskCard extends StatelessWidget {
   String? taskDescription;
   String? firstTime;
-  String? secondTime;
   int? id;
   bool? stateTask;
   void Function()? onPressedChangeState;
   void Function()? onPressedDeleteTask;
 
-  TaskCard({super.key, this.onPressedDeleteTask, this.onPressedChangeState, this.id, this.stateTask, this.taskDescription, this.firstTime, this.secondTime});
+  TaskCard({super.key, this.onPressedDeleteTask, this.onPressedChangeState, this.id, this.stateTask, this.taskDescription, this.firstTime});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +55,7 @@ class TaskCard extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(left: 8),
                               child: Text(
-                                '${firstTime.toString()} - ${secondTime.toString()}',
+                                firstTime.toString(),
                                 style: const TextStyle(fontSize: 18),
                               ),
                             ),

@@ -33,12 +33,6 @@ class $TasksTable extends Tasks with TableInfo<$TasksTable, Task> {
   late final GeneratedColumn<String> firstTime = GeneratedColumn<String>(
       'first_time', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _secondTimeMeta =
-      const VerificationMeta('secondTime');
-  @override
-  late final GeneratedColumn<String> secondTime = GeneratedColumn<String>(
-      'second_time', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _stateTaskMeta =
       const VerificationMeta('stateTask');
   @override
@@ -49,8 +43,7 @@ class $TasksTable extends Tasks with TableInfo<$TasksTable, Task> {
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('CHECK ("state_task" IN (0, 1))'));
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, task, date, firstTime, secondTime, stateTask];
+  List<GeneratedColumn> get $columns => [id, task, date, firstTime, stateTask];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -82,14 +75,6 @@ class $TasksTable extends Tasks with TableInfo<$TasksTable, Task> {
     } else if (isInserting) {
       context.missing(_firstTimeMeta);
     }
-    if (data.containsKey('second_time')) {
-      context.handle(
-          _secondTimeMeta,
-          secondTime.isAcceptableOrUnknown(
-              data['second_time']!, _secondTimeMeta));
-    } else if (isInserting) {
-      context.missing(_secondTimeMeta);
-    }
     if (data.containsKey('state_task')) {
       context.handle(_stateTaskMeta,
           stateTask.isAcceptableOrUnknown(data['state_task']!, _stateTaskMeta));
@@ -113,8 +98,6 @@ class $TasksTable extends Tasks with TableInfo<$TasksTable, Task> {
           .read(DriftSqlType.string, data['${effectivePrefix}date'])!,
       firstTime: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}first_time'])!,
-      secondTime: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}second_time'])!,
       stateTask: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}state_task'])!,
     );
@@ -131,14 +114,12 @@ class Task extends DataClass implements Insertable<Task> {
   final String task;
   final String date;
   final String firstTime;
-  final String secondTime;
   final bool stateTask;
   const Task(
       {required this.id,
       required this.task,
       required this.date,
       required this.firstTime,
-      required this.secondTime,
       required this.stateTask});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -147,7 +128,6 @@ class Task extends DataClass implements Insertable<Task> {
     map['task'] = Variable<String>(task);
     map['date'] = Variable<String>(date);
     map['first_time'] = Variable<String>(firstTime);
-    map['second_time'] = Variable<String>(secondTime);
     map['state_task'] = Variable<bool>(stateTask);
     return map;
   }
@@ -158,7 +138,6 @@ class Task extends DataClass implements Insertable<Task> {
       task: Value(task),
       date: Value(date),
       firstTime: Value(firstTime),
-      secondTime: Value(secondTime),
       stateTask: Value(stateTask),
     );
   }
@@ -171,7 +150,6 @@ class Task extends DataClass implements Insertable<Task> {
       task: serializer.fromJson<String>(json['task']),
       date: serializer.fromJson<String>(json['date']),
       firstTime: serializer.fromJson<String>(json['firstTime']),
-      secondTime: serializer.fromJson<String>(json['secondTime']),
       stateTask: serializer.fromJson<bool>(json['stateTask']),
     );
   }
@@ -183,7 +161,6 @@ class Task extends DataClass implements Insertable<Task> {
       'task': serializer.toJson<String>(task),
       'date': serializer.toJson<String>(date),
       'firstTime': serializer.toJson<String>(firstTime),
-      'secondTime': serializer.toJson<String>(secondTime),
       'stateTask': serializer.toJson<bool>(stateTask),
     };
   }
@@ -193,14 +170,12 @@ class Task extends DataClass implements Insertable<Task> {
           String? task,
           String? date,
           String? firstTime,
-          String? secondTime,
           bool? stateTask}) =>
       Task(
         id: id ?? this.id,
         task: task ?? this.task,
         date: date ?? this.date,
         firstTime: firstTime ?? this.firstTime,
-        secondTime: secondTime ?? this.secondTime,
         stateTask: stateTask ?? this.stateTask,
       );
   Task copyWithCompanion(TasksCompanion data) {
@@ -209,8 +184,6 @@ class Task extends DataClass implements Insertable<Task> {
       task: data.task.present ? data.task.value : this.task,
       date: data.date.present ? data.date.value : this.date,
       firstTime: data.firstTime.present ? data.firstTime.value : this.firstTime,
-      secondTime:
-          data.secondTime.present ? data.secondTime.value : this.secondTime,
       stateTask: data.stateTask.present ? data.stateTask.value : this.stateTask,
     );
   }
@@ -222,15 +195,13 @@ class Task extends DataClass implements Insertable<Task> {
           ..write('task: $task, ')
           ..write('date: $date, ')
           ..write('firstTime: $firstTime, ')
-          ..write('secondTime: $secondTime, ')
           ..write('stateTask: $stateTask')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, task, date, firstTime, secondTime, stateTask);
+  int get hashCode => Object.hash(id, task, date, firstTime, stateTask);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -239,7 +210,6 @@ class Task extends DataClass implements Insertable<Task> {
           other.task == this.task &&
           other.date == this.date &&
           other.firstTime == this.firstTime &&
-          other.secondTime == this.secondTime &&
           other.stateTask == this.stateTask);
 }
 
@@ -248,14 +218,12 @@ class TasksCompanion extends UpdateCompanion<Task> {
   final Value<String> task;
   final Value<String> date;
   final Value<String> firstTime;
-  final Value<String> secondTime;
   final Value<bool> stateTask;
   const TasksCompanion({
     this.id = const Value.absent(),
     this.task = const Value.absent(),
     this.date = const Value.absent(),
     this.firstTime = const Value.absent(),
-    this.secondTime = const Value.absent(),
     this.stateTask = const Value.absent(),
   });
   TasksCompanion.insert({
@@ -263,19 +231,16 @@ class TasksCompanion extends UpdateCompanion<Task> {
     required String task,
     required String date,
     required String firstTime,
-    required String secondTime,
     required bool stateTask,
   })  : task = Value(task),
         date = Value(date),
         firstTime = Value(firstTime),
-        secondTime = Value(secondTime),
         stateTask = Value(stateTask);
   static Insertable<Task> custom({
     Expression<int>? id,
     Expression<String>? task,
     Expression<String>? date,
     Expression<String>? firstTime,
-    Expression<String>? secondTime,
     Expression<bool>? stateTask,
   }) {
     return RawValuesInsertable({
@@ -283,7 +248,6 @@ class TasksCompanion extends UpdateCompanion<Task> {
       if (task != null) 'task': task,
       if (date != null) 'date': date,
       if (firstTime != null) 'first_time': firstTime,
-      if (secondTime != null) 'second_time': secondTime,
       if (stateTask != null) 'state_task': stateTask,
     });
   }
@@ -293,14 +257,12 @@ class TasksCompanion extends UpdateCompanion<Task> {
       Value<String>? task,
       Value<String>? date,
       Value<String>? firstTime,
-      Value<String>? secondTime,
       Value<bool>? stateTask}) {
     return TasksCompanion(
       id: id ?? this.id,
       task: task ?? this.task,
       date: date ?? this.date,
       firstTime: firstTime ?? this.firstTime,
-      secondTime: secondTime ?? this.secondTime,
       stateTask: stateTask ?? this.stateTask,
     );
   }
@@ -320,9 +282,6 @@ class TasksCompanion extends UpdateCompanion<Task> {
     if (firstTime.present) {
       map['first_time'] = Variable<String>(firstTime.value);
     }
-    if (secondTime.present) {
-      map['second_time'] = Variable<String>(secondTime.value);
-    }
     if (stateTask.present) {
       map['state_task'] = Variable<bool>(stateTask.value);
     }
@@ -336,7 +295,6 @@ class TasksCompanion extends UpdateCompanion<Task> {
           ..write('task: $task, ')
           ..write('date: $date, ')
           ..write('firstTime: $firstTime, ')
-          ..write('secondTime: $secondTime, ')
           ..write('stateTask: $stateTask')
           ..write(')'))
         .toString();
@@ -438,7 +396,6 @@ typedef $$TasksTableCreateCompanionBuilder = TasksCompanion Function({
   required String task,
   required String date,
   required String firstTime,
-  required String secondTime,
   required bool stateTask,
 });
 typedef $$TasksTableUpdateCompanionBuilder = TasksCompanion Function({
@@ -446,7 +403,6 @@ typedef $$TasksTableUpdateCompanionBuilder = TasksCompanion Function({
   Value<String> task,
   Value<String> date,
   Value<String> firstTime,
-  Value<String> secondTime,
   Value<bool> stateTask,
 });
 
@@ -471,7 +427,6 @@ class $$TasksTableTableManager extends RootTableManager<
             Value<String> task = const Value.absent(),
             Value<String> date = const Value.absent(),
             Value<String> firstTime = const Value.absent(),
-            Value<String> secondTime = const Value.absent(),
             Value<bool> stateTask = const Value.absent(),
           }) =>
               TasksCompanion(
@@ -479,7 +434,6 @@ class $$TasksTableTableManager extends RootTableManager<
             task: task,
             date: date,
             firstTime: firstTime,
-            secondTime: secondTime,
             stateTask: stateTask,
           ),
           createCompanionCallback: ({
@@ -487,7 +441,6 @@ class $$TasksTableTableManager extends RootTableManager<
             required String task,
             required String date,
             required String firstTime,
-            required String secondTime,
             required bool stateTask,
           }) =>
               TasksCompanion.insert(
@@ -495,7 +448,6 @@ class $$TasksTableTableManager extends RootTableManager<
             task: task,
             date: date,
             firstTime: firstTime,
-            secondTime: secondTime,
             stateTask: stateTask,
           ),
         ));
@@ -521,11 +473,6 @@ class $$TasksTableFilterComposer
 
   ColumnFilters<String> get firstTime => $state.composableBuilder(
       column: $state.table.firstTime,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get secondTime => $state.composableBuilder(
-      column: $state.table.secondTime,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
@@ -555,11 +502,6 @@ class $$TasksTableOrderingComposer
 
   ColumnOrderings<String> get firstTime => $state.composableBuilder(
       column: $state.table.firstTime,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get secondTime => $state.composableBuilder(
-      column: $state.table.secondTime,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
