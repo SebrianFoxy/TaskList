@@ -6,7 +6,7 @@ final darkTheme = ThemeData(
   useMaterial3: true,
   primaryColor: _primaryColor,
   textTheme: _textTheme,
-  appBarTheme: AppBarTheme(
+  appBarTheme: const AppBarTheme(
     backgroundColor: Colors.black38,
   ),
   scaffoldBackgroundColor: Colors.grey.shade900,

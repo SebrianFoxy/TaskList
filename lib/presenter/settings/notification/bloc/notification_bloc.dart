@@ -36,7 +36,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   _changeNotification(_ChangeNotification event, Emitter<NotificationState> emit) async {
     try{
       NotificationService().requestPermissions();
-      print(event.notification);
       emit(state.copyWith(notification: event.notification));
     }catch (e) {
       log(e.toString());

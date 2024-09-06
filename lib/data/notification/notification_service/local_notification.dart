@@ -23,7 +23,7 @@ class NotificationService {
     const AndroidInitializationSettings initializationSettingsAndroid =
     AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    final InitializationSettings initializationSettings =
+    const InitializationSettings initializationSettings =
     InitializationSettings(
       android: initializationSettingsAndroid,
     );
@@ -32,15 +32,6 @@ class NotificationService {
   }
 
   Future<void> requestPermissions() async {
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-        IOSFlutterLocalNotificationsPlugin>()
-        ?.requestPermissions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
-
     await FirebaseMessaging.instance.requestPermission(
       alert: true,
       badge: true,

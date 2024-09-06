@@ -32,6 +32,7 @@ Future <void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await NotificationService().init();
+  NotificationService().requestPermissions();
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {

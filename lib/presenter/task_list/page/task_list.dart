@@ -30,7 +30,6 @@ class _TaskListPageState extends State<TaskListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = context.watch<ThemeCubit>().state.isDark;
     final TextEditingController _searchTask = TextEditingController();
 
     return Scaffold(

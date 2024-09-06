@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:task_manager_mobile/core/ui/ui.dart';
+import 'package:task_manager_mobile/data/notification/notification_service/local_notification.dart';
 import 'package:task_manager_mobile/main.dart';
 import 'package:task_manager_mobile/presenter/settings/notification/bloc/notification_bloc.dart';
 import 'package:task_manager_mobile/presenter/settings/theme/cubit/theme_cubit.dart';
@@ -64,7 +65,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   //     Switch(
                   //         value: isNotification,
                   //         onChanged: (value) {
-                  //
+                  //           NotificationService().requestPermissions();
                   //         }
                   //     ),
                   //   ],
