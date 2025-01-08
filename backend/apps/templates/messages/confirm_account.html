@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Confirm Your Account</title>
+</head>
+
+<body>
+    <p>Добро пожаловать! Чтобы подтвердить свой аккаунт, пожалуйста, нажмите на ссылку ниже:</p>
+    <a href="{{ url_for('api_bp.auth_confirm_account_api', token=token, _external=True) }}">
+        Подтвердить аккаунт
+    </a>
+</body>
+
+</html>
