@@ -1,5 +1,5 @@
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, create_refresh_token, get_jwt
-
+from datetime import timedelta
 from apps.models.user import User
 
 jwt = JWTManager()
@@ -24,13 +24,15 @@ def create_token(user: User, refresh=False):
     if refresh:
         return create_refresh_token(identity={
             'userId': user.id,
-        })
+        },
+        expires_delta=timedelta(days=30))
     else:
         return create_access_token(
             identity={
                 'email': user.email,
                 'userId': user.id,
-            }
+            },
+            expires_delta= timedelta(days=29)
         )
 
 

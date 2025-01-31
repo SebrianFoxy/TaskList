@@ -14,7 +14,7 @@ task_expect_model = ns.model('task expect', {
     'task': fields.String(),
     'date': fields.String(),
     'firstTime': fields.String(),
-    'stateTask': fields.String(),
+    'stateTask': fields.Boolean(),
 })
 
 task_response_model = ns.model('task response', {
@@ -22,7 +22,7 @@ task_response_model = ns.model('task response', {
     'task': fields.String(),
     'date': fields.String(),
     'firstTime': fields.String(),
-    'stateTask': fields.String(),
+    'stateTask': fields.Boolean(),
     'dateJoined': fields.DateTime(),
 })
 

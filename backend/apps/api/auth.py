@@ -89,7 +89,7 @@ class LoginApi(Resource):
         user_exists = User.get_by_email(_email)
 
         if not user_exists:
-            abort(404, 'User not found')
+            abort(401, 'User not found')
 
         if not user_exists.check_password(_password):
             abort(401, 'Invalid password')

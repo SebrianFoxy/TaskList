@@ -2,7 +2,7 @@ from typing import Dict, Any
 
 from sqlalchemy.orm import relationship
 from sqlalchemy.schema import Column, ForeignKey
-from sqlalchemy.types import DateTime, String, Integer, BigInteger
+from sqlalchemy.types import DateTime, String, Integer, Boolean
 from infrastructure.extensions.model_extensions import ModelExtension
 from datetime import datetime
 from flask_jwt_extended import get_jwt_identity
@@ -16,7 +16,7 @@ class Task(ModelExtension):
     task = Column(String(255))
     date = Column(String(255))
     firstTime = Column(String(255))
-    stateTask = Column(String(255))
+    stateTask = Column(Boolean, nullable=False, default=False)
     dateJoined = Column(DateTime, default=datetime.utcnow, nullable=False)
 
     @classmethod
