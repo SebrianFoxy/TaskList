@@ -33,7 +33,9 @@ class Database extends _$Database {
   int get schemaVersion => 2;
 
   Future<List<Task>> allTasks() {
-    return select(tasks).get();
+    return (select(tasks)
+      ..where((t) => t.syncStatus.equals('deleting').not())
+    ).get();
   }
 
   Future<int> deleteTaskById(int id) {
@@ -41,7 +43,10 @@ class Database extends _$Database {
   }
 
   Future<List<Task>> searchTasks(String query) {
-    return (select(tasks)..where((t) => t.task.contains(query))).get();
+    return (select(tasks)
+      ..where((t) => t.task.contains(query))
+      ..where((t) => t.syncStatus.equals('deleting').not())
+    ).get();
   }
 
   Future<List<Task>> taskOfDay() {
@@ -49,15 +54,21 @@ class Database extends _$Database {
     final today = DateTime(now.year, now.month, now.day);
     return (select(tasks)
       ..where((t) => t.date.equals(today.toString().split(' ')[0]))
-      ..orderBy([(t) => OrderingTerm(expression: t.firstTime, mode: OrderingMode.asc)]))
-        .get();
+      ..where((t) => t.syncStatus.equals('deleting').not())
+      ..orderBy([
+            (t) => OrderingTerm(expression: t.firstTime, mode: OrderingMode.asc)
+      ])
+    ).get();
   }
 
   Future<List<Task>> taskMyDay(thisDay) {
     return (select(tasks)
       ..where((t) => t.date.equals(thisDay.toString().split(' ')[0]))
-      ..orderBy([(t) => OrderingTerm(expression: t.firstTime, mode: OrderingMode.asc)]))
-        .get();
+      ..where((t) => t.syncStatus.equals('deleting').not())
+      ..orderBy([
+            (t) => OrderingTerm(expression: t.firstTime, mode: OrderingMode.asc)
+      ])
+    ).get();
   }
 
   Future<void> toggleTaskState(int id) async {
@@ -82,12 +93,24 @@ class Database extends _$Database {
         .write(TasksCompanion(serverId: Value(serverId)));
   }
 
-  Future<List<Task>> getTasksOnSync() async {
+  Future<List<Task>> getTasksOnPushSync() async {
     return (select(tasks)..where((t) => t.syncStatus.contains('pending'))).get();
   }
 
-  
+  Future<List<Task>> getTasksOnDeleteSync() async {
+    return (select(tasks)..where((t) => t.syncStatus.contains('deleting'))).get();
+  }
 
+  Future<void> deleteOfMarkTask(int id) async {
+    await (update(tasks)
+      ..where((t) => t.id.equals(id)))
+        .write(const TasksCompanion(syncStatus: Value('deleting')));
+  }
+
+  Future<Task?> getTaskByServerId(int serverId) async {
+    return (select(tasks)
+      ..where((t) => t.serverId.equals(serverId))).getSingleOrNull();
+  }
 }
 
 // Future<void> deleteDatabase() async {

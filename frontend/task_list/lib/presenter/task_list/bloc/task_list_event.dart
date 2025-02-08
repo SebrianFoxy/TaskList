@@ -28,4 +28,8 @@ class TaskListEvent with _$TaskListEvent {
   }) = _ChangeStateTask;
 
   const factory TaskListEvent.syncTask() = _SyncTask;
+
+  const factory TaskListEvent.syncDelTask() = _SyncDelTask;
+
+  const factory TaskListEvent.syncTaskFromServer() = _SyncTaskFromServer;
 }

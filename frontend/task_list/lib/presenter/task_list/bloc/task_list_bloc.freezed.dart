@@ -27,6 +27,8 @@ mixin _$TaskListEvent {
     required TResult Function(String? filter) filteredTasks,
     required TResult Function(int id, bool? stateTask) changeStateTask,
     required TResult Function() syncTask,
+    required TResult Function() syncDelTask,
+    required TResult Function() syncTaskFromServer,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -39,6 +41,8 @@ mixin _$TaskListEvent {
     TResult? Function(String? filter)? filteredTasks,
     TResult? Function(int id, bool? stateTask)? changeStateTask,
     TResult? Function()? syncTask,
+    TResult? Function()? syncDelTask,
+    TResult? Function()? syncTaskFromServer,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -51,6 +55,8 @@ mixin _$TaskListEvent {
     TResult Function(String? filter)? filteredTasks,
     TResult Function(int id, bool? stateTask)? changeStateTask,
     TResult Function()? syncTask,
+    TResult Function()? syncDelTask,
+    TResult Function()? syncTaskFromServer,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -63,6 +69,8 @@ mixin _$TaskListEvent {
     required TResult Function(_FilteredTasks value) filteredTasks,
     required TResult Function(_ChangeStateTask value) changeStateTask,
     required TResult Function(_SyncTask value) syncTask,
+    required TResult Function(_SyncDelTask value) syncDelTask,
+    required TResult Function(_SyncTaskFromServer value) syncTaskFromServer,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -74,6 +82,8 @@ mixin _$TaskListEvent {
     TResult? Function(_FilteredTasks value)? filteredTasks,
     TResult? Function(_ChangeStateTask value)? changeStateTask,
     TResult? Function(_SyncTask value)? syncTask,
+    TResult? Function(_SyncDelTask value)? syncDelTask,
+    TResult? Function(_SyncTaskFromServer value)? syncTaskFromServer,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -85,6 +95,8 @@ mixin _$TaskListEvent {
     TResult Function(_FilteredTasks value)? filteredTasks,
     TResult Function(_ChangeStateTask value)? changeStateTask,
     TResult Function(_SyncTask value)? syncTask,
+    TResult Function(_SyncDelTask value)? syncDelTask,
+    TResult Function(_SyncTaskFromServer value)? syncTaskFromServer,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -161,6 +173,8 @@ class _$FetchImpl implements _Fetch {
     required TResult Function(String? filter) filteredTasks,
     required TResult Function(int id, bool? stateTask) changeStateTask,
     required TResult Function() syncTask,
+    required TResult Function() syncDelTask,
+    required TResult Function() syncTaskFromServer,
   }) {
     return fetch();
   }
@@ -176,6 +190,8 @@ class _$FetchImpl implements _Fetch {
     TResult? Function(String? filter)? filteredTasks,
     TResult? Function(int id, bool? stateTask)? changeStateTask,
     TResult? Function()? syncTask,
+    TResult? Function()? syncDelTask,
+    TResult? Function()? syncTaskFromServer,
   }) {
     return fetch?.call();
   }
@@ -191,6 +207,8 @@ class _$FetchImpl implements _Fetch {
     TResult Function(String? filter)? filteredTasks,
     TResult Function(int id, bool? stateTask)? changeStateTask,
     TResult Function()? syncTask,
+    TResult Function()? syncDelTask,
+    TResult Function()? syncTaskFromServer,
     required TResult orElse(),
   }) {
     if (fetch != null) {
@@ -209,6 +227,8 @@ class _$FetchImpl implements _Fetch {
     required TResult Function(_FilteredTasks value) filteredTasks,
     required TResult Function(_ChangeStateTask value) changeStateTask,
     required TResult Function(_SyncTask value) syncTask,
+    required TResult Function(_SyncDelTask value) syncDelTask,
+    required TResult Function(_SyncTaskFromServer value) syncTaskFromServer,
   }) {
     return fetch(this);
   }
@@ -223,6 +243,8 @@ class _$FetchImpl implements _Fetch {
     TResult? Function(_FilteredTasks value)? filteredTasks,
     TResult? Function(_ChangeStateTask value)? changeStateTask,
     TResult? Function(_SyncTask value)? syncTask,
+    TResult? Function(_SyncDelTask value)? syncDelTask,
+    TResult? Function(_SyncTaskFromServer value)? syncTaskFromServer,
   }) {
     return fetch?.call(this);
   }
@@ -237,6 +259,8 @@ class _$FetchImpl implements _Fetch {
     TResult Function(_FilteredTasks value)? filteredTasks,
     TResult Function(_ChangeStateTask value)? changeStateTask,
     TResult Function(_SyncTask value)? syncTask,
+    TResult Function(_SyncDelTask value)? syncDelTask,
+    TResult Function(_SyncTaskFromServer value)? syncTaskFromServer,
     required TResult orElse(),
   }) {
     if (fetch != null) {
@@ -349,6 +373,8 @@ class _$CreateTaskImpl implements _CreateTask {
     required TResult Function(String? filter) filteredTasks,
     required TResult Function(int id, bool? stateTask) changeStateTask,
     required TResult Function() syncTask,
+    required TResult Function() syncDelTask,
+    required TResult Function() syncTaskFromServer,
   }) {
     return createTask(descriptionTask, date, firstTime);
   }
@@ -364,6 +390,8 @@ class _$CreateTaskImpl implements _CreateTask {
     TResult? Function(String? filter)? filteredTasks,
     TResult? Function(int id, bool? stateTask)? changeStateTask,
     TResult? Function()? syncTask,
+    TResult? Function()? syncDelTask,
+    TResult? Function()? syncTaskFromServer,
   }) {
     return createTask?.call(descriptionTask, date, firstTime);
   }
@@ -379,6 +407,8 @@ class _$CreateTaskImpl implements _CreateTask {
     TResult Function(String? filter)? filteredTasks,
     TResult Function(int id, bool? stateTask)? changeStateTask,
     TResult Function()? syncTask,
+    TResult Function()? syncDelTask,
+    TResult Function()? syncTaskFromServer,
     required TResult orElse(),
   }) {
     if (createTask != null) {
@@ -397,6 +427,8 @@ class _$CreateTaskImpl implements _CreateTask {
     required TResult Function(_FilteredTasks value) filteredTasks,
     required TResult Function(_ChangeStateTask value) changeStateTask,
     required TResult Function(_SyncTask value) syncTask,
+    required TResult Function(_SyncDelTask value) syncDelTask,
+    required TResult Function(_SyncTaskFromServer value) syncTaskFromServer,
   }) {
     return createTask(this);
   }
@@ -411,6 +443,8 @@ class _$CreateTaskImpl implements _CreateTask {
     TResult? Function(_FilteredTasks value)? filteredTasks,
     TResult? Function(_ChangeStateTask value)? changeStateTask,
     TResult? Function(_SyncTask value)? syncTask,
+    TResult? Function(_SyncDelTask value)? syncDelTask,
+    TResult? Function(_SyncTaskFromServer value)? syncTaskFromServer,
   }) {
     return createTask?.call(this);
   }
@@ -425,6 +459,8 @@ class _$CreateTaskImpl implements _CreateTask {
     TResult Function(_FilteredTasks value)? filteredTasks,
     TResult Function(_ChangeStateTask value)? changeStateTask,
     TResult Function(_SyncTask value)? syncTask,
+    TResult Function(_SyncDelTask value)? syncDelTask,
+    TResult Function(_SyncTaskFromServer value)? syncTaskFromServer,
     required TResult orElse(),
   }) {
     if (createTask != null) {
@@ -528,6 +564,8 @@ class _$DeleteTaskImpl implements _DeleteTask {
     required TResult Function(String? filter) filteredTasks,
     required TResult Function(int id, bool? stateTask) changeStateTask,
     required TResult Function() syncTask,
+    required TResult Function() syncDelTask,
+    required TResult Function() syncTaskFromServer,
   }) {
     return deleteTask(id);
   }
@@ -543,6 +581,8 @@ class _$DeleteTaskImpl implements _DeleteTask {
     TResult? Function(String? filter)? filteredTasks,
     TResult? Function(int id, bool? stateTask)? changeStateTask,
     TResult? Function()? syncTask,
+    TResult? Function()? syncDelTask,
+    TResult? Function()? syncTaskFromServer,
   }) {
     return deleteTask?.call(id);
   }
@@ -558,6 +598,8 @@ class _$DeleteTaskImpl implements _DeleteTask {
     TResult Function(String? filter)? filteredTasks,
     TResult Function(int id, bool? stateTask)? changeStateTask,
     TResult Function()? syncTask,
+    TResult Function()? syncDelTask,
+    TResult Function()? syncTaskFromServer,
     required TResult orElse(),
   }) {
     if (deleteTask != null) {
@@ -576,6 +618,8 @@ class _$DeleteTaskImpl implements _DeleteTask {
     required TResult Function(_FilteredTasks value) filteredTasks,
     required TResult Function(_ChangeStateTask value) changeStateTask,
     required TResult Function(_SyncTask value) syncTask,
+    required TResult Function(_SyncDelTask value) syncDelTask,
+    required TResult Function(_SyncTaskFromServer value) syncTaskFromServer,
   }) {
     return deleteTask(this);
   }
@@ -590,6 +634,8 @@ class _$DeleteTaskImpl implements _DeleteTask {
     TResult? Function(_FilteredTasks value)? filteredTasks,
     TResult? Function(_ChangeStateTask value)? changeStateTask,
     TResult? Function(_SyncTask value)? syncTask,
+    TResult? Function(_SyncDelTask value)? syncDelTask,
+    TResult? Function(_SyncTaskFromServer value)? syncTaskFromServer,
   }) {
     return deleteTask?.call(this);
   }
@@ -604,6 +650,8 @@ class _$DeleteTaskImpl implements _DeleteTask {
     TResult Function(_FilteredTasks value)? filteredTasks,
     TResult Function(_ChangeStateTask value)? changeStateTask,
     TResult Function(_SyncTask value)? syncTask,
+    TResult Function(_SyncDelTask value)? syncDelTask,
+    TResult Function(_SyncTaskFromServer value)? syncTaskFromServer,
     required TResult orElse(),
   }) {
     if (deleteTask != null) {
@@ -702,6 +750,8 @@ class _$SearchTaskImpl implements _SearchTask {
     required TResult Function(String? filter) filteredTasks,
     required TResult Function(int id, bool? stateTask) changeStateTask,
     required TResult Function() syncTask,
+    required TResult Function() syncDelTask,
+    required TResult Function() syncTaskFromServer,
   }) {
     return searchTask(query);
   }
@@ -717,6 +767,8 @@ class _$SearchTaskImpl implements _SearchTask {
     TResult? Function(String? filter)? filteredTasks,
     TResult? Function(int id, bool? stateTask)? changeStateTask,
     TResult? Function()? syncTask,
+    TResult? Function()? syncDelTask,
+    TResult? Function()? syncTaskFromServer,
   }) {
     return searchTask?.call(query);
   }
@@ -732,6 +784,8 @@ class _$SearchTaskImpl implements _SearchTask {
     TResult Function(String? filter)? filteredTasks,
     TResult Function(int id, bool? stateTask)? changeStateTask,
     TResult Function()? syncTask,
+    TResult Function()? syncDelTask,
+    TResult Function()? syncTaskFromServer,
     required TResult orElse(),
   }) {
     if (searchTask != null) {
@@ -750,6 +804,8 @@ class _$SearchTaskImpl implements _SearchTask {
     required TResult Function(_FilteredTasks value) filteredTasks,
     required TResult Function(_ChangeStateTask value) changeStateTask,
     required TResult Function(_SyncTask value) syncTask,
+    required TResult Function(_SyncDelTask value) syncDelTask,
+    required TResult Function(_SyncTaskFromServer value) syncTaskFromServer,
   }) {
     return searchTask(this);
   }
@@ -764,6 +820,8 @@ class _$SearchTaskImpl implements _SearchTask {
     TResult? Function(_FilteredTasks value)? filteredTasks,
     TResult? Function(_ChangeStateTask value)? changeStateTask,
     TResult? Function(_SyncTask value)? syncTask,
+    TResult? Function(_SyncDelTask value)? syncDelTask,
+    TResult? Function(_SyncTaskFromServer value)? syncTaskFromServer,
   }) {
     return searchTask?.call(this);
   }
@@ -778,6 +836,8 @@ class _$SearchTaskImpl implements _SearchTask {
     TResult Function(_FilteredTasks value)? filteredTasks,
     TResult Function(_ChangeStateTask value)? changeStateTask,
     TResult Function(_SyncTask value)? syncTask,
+    TResult Function(_SyncDelTask value)? syncDelTask,
+    TResult Function(_SyncTaskFromServer value)? syncTaskFromServer,
     required TResult orElse(),
   }) {
     if (searchTask != null) {
@@ -876,6 +936,8 @@ class _$FilteredTasksImpl implements _FilteredTasks {
     required TResult Function(String? filter) filteredTasks,
     required TResult Function(int id, bool? stateTask) changeStateTask,
     required TResult Function() syncTask,
+    required TResult Function() syncDelTask,
+    required TResult Function() syncTaskFromServer,
   }) {
     return filteredTasks(filter);
   }
@@ -891,6 +953,8 @@ class _$FilteredTasksImpl implements _FilteredTasks {
     TResult? Function(String? filter)? filteredTasks,
     TResult? Function(int id, bool? stateTask)? changeStateTask,
     TResult? Function()? syncTask,
+    TResult? Function()? syncDelTask,
+    TResult? Function()? syncTaskFromServer,
   }) {
     return filteredTasks?.call(filter);
   }
@@ -906,6 +970,8 @@ class _$FilteredTasksImpl implements _FilteredTasks {
     TResult Function(String? filter)? filteredTasks,
     TResult Function(int id, bool? stateTask)? changeStateTask,
     TResult Function()? syncTask,
+    TResult Function()? syncDelTask,
+    TResult Function()? syncTaskFromServer,
     required TResult orElse(),
   }) {
     if (filteredTasks != null) {
@@ -924,6 +990,8 @@ class _$FilteredTasksImpl implements _FilteredTasks {
     required TResult Function(_FilteredTasks value) filteredTasks,
     required TResult Function(_ChangeStateTask value) changeStateTask,
     required TResult Function(_SyncTask value) syncTask,
+    required TResult Function(_SyncDelTask value) syncDelTask,
+    required TResult Function(_SyncTaskFromServer value) syncTaskFromServer,
   }) {
     return filteredTasks(this);
   }
@@ -938,6 +1006,8 @@ class _$FilteredTasksImpl implements _FilteredTasks {
     TResult? Function(_FilteredTasks value)? filteredTasks,
     TResult? Function(_ChangeStateTask value)? changeStateTask,
     TResult? Function(_SyncTask value)? syncTask,
+    TResult? Function(_SyncDelTask value)? syncDelTask,
+    TResult? Function(_SyncTaskFromServer value)? syncTaskFromServer,
   }) {
     return filteredTasks?.call(this);
   }
@@ -952,6 +1022,8 @@ class _$FilteredTasksImpl implements _FilteredTasks {
     TResult Function(_FilteredTasks value)? filteredTasks,
     TResult Function(_ChangeStateTask value)? changeStateTask,
     TResult Function(_SyncTask value)? syncTask,
+    TResult Function(_SyncDelTask value)? syncDelTask,
+    TResult Function(_SyncTaskFromServer value)? syncTaskFromServer,
     required TResult orElse(),
   }) {
     if (filteredTasks != null) {
@@ -1060,6 +1132,8 @@ class _$ChangeStateTaskImpl implements _ChangeStateTask {
     required TResult Function(String? filter) filteredTasks,
     required TResult Function(int id, bool? stateTask) changeStateTask,
     required TResult Function() syncTask,
+    required TResult Function() syncDelTask,
+    required TResult Function() syncTaskFromServer,
   }) {
     return changeStateTask(id, stateTask);
   }
@@ -1075,6 +1149,8 @@ class _$ChangeStateTaskImpl implements _ChangeStateTask {
     TResult? Function(String? filter)? filteredTasks,
     TResult? Function(int id, bool? stateTask)? changeStateTask,
     TResult? Function()? syncTask,
+    TResult? Function()? syncDelTask,
+    TResult? Function()? syncTaskFromServer,
   }) {
     return changeStateTask?.call(id, stateTask);
   }
@@ -1090,6 +1166,8 @@ class _$ChangeStateTaskImpl implements _ChangeStateTask {
     TResult Function(String? filter)? filteredTasks,
     TResult Function(int id, bool? stateTask)? changeStateTask,
     TResult Function()? syncTask,
+    TResult Function()? syncDelTask,
+    TResult Function()? syncTaskFromServer,
     required TResult orElse(),
   }) {
     if (changeStateTask != null) {
@@ -1108,6 +1186,8 @@ class _$ChangeStateTaskImpl implements _ChangeStateTask {
     required TResult Function(_FilteredTasks value) filteredTasks,
     required TResult Function(_ChangeStateTask value) changeStateTask,
     required TResult Function(_SyncTask value) syncTask,
+    required TResult Function(_SyncDelTask value) syncDelTask,
+    required TResult Function(_SyncTaskFromServer value) syncTaskFromServer,
   }) {
     return changeStateTask(this);
   }
@@ -1122,6 +1202,8 @@ class _$ChangeStateTaskImpl implements _ChangeStateTask {
     TResult? Function(_FilteredTasks value)? filteredTasks,
     TResult? Function(_ChangeStateTask value)? changeStateTask,
     TResult? Function(_SyncTask value)? syncTask,
+    TResult? Function(_SyncDelTask value)? syncDelTask,
+    TResult? Function(_SyncTaskFromServer value)? syncTaskFromServer,
   }) {
     return changeStateTask?.call(this);
   }
@@ -1136,6 +1218,8 @@ class _$ChangeStateTaskImpl implements _ChangeStateTask {
     TResult Function(_FilteredTasks value)? filteredTasks,
     TResult Function(_ChangeStateTask value)? changeStateTask,
     TResult Function(_SyncTask value)? syncTask,
+    TResult Function(_SyncDelTask value)? syncDelTask,
+    TResult Function(_SyncTaskFromServer value)? syncTaskFromServer,
     required TResult orElse(),
   }) {
     if (changeStateTask != null) {
@@ -1209,6 +1293,8 @@ class _$SyncTaskImpl implements _SyncTask {
     required TResult Function(String? filter) filteredTasks,
     required TResult Function(int id, bool? stateTask) changeStateTask,
     required TResult Function() syncTask,
+    required TResult Function() syncDelTask,
+    required TResult Function() syncTaskFromServer,
   }) {
     return syncTask();
   }
@@ -1224,6 +1310,8 @@ class _$SyncTaskImpl implements _SyncTask {
     TResult? Function(String? filter)? filteredTasks,
     TResult? Function(int id, bool? stateTask)? changeStateTask,
     TResult? Function()? syncTask,
+    TResult? Function()? syncDelTask,
+    TResult? Function()? syncTaskFromServer,
   }) {
     return syncTask?.call();
   }
@@ -1239,6 +1327,8 @@ class _$SyncTaskImpl implements _SyncTask {
     TResult Function(String? filter)? filteredTasks,
     TResult Function(int id, bool? stateTask)? changeStateTask,
     TResult Function()? syncTask,
+    TResult Function()? syncDelTask,
+    TResult Function()? syncTaskFromServer,
     required TResult orElse(),
   }) {
     if (syncTask != null) {
@@ -1257,6 +1347,8 @@ class _$SyncTaskImpl implements _SyncTask {
     required TResult Function(_FilteredTasks value) filteredTasks,
     required TResult Function(_ChangeStateTask value) changeStateTask,
     required TResult Function(_SyncTask value) syncTask,
+    required TResult Function(_SyncDelTask value) syncDelTask,
+    required TResult Function(_SyncTaskFromServer value) syncTaskFromServer,
   }) {
     return syncTask(this);
   }
@@ -1271,6 +1363,8 @@ class _$SyncTaskImpl implements _SyncTask {
     TResult? Function(_FilteredTasks value)? filteredTasks,
     TResult? Function(_ChangeStateTask value)? changeStateTask,
     TResult? Function(_SyncTask value)? syncTask,
+    TResult? Function(_SyncDelTask value)? syncDelTask,
+    TResult? Function(_SyncTaskFromServer value)? syncTaskFromServer,
   }) {
     return syncTask?.call(this);
   }
@@ -1285,6 +1379,8 @@ class _$SyncTaskImpl implements _SyncTask {
     TResult Function(_FilteredTasks value)? filteredTasks,
     TResult Function(_ChangeStateTask value)? changeStateTask,
     TResult Function(_SyncTask value)? syncTask,
+    TResult Function(_SyncDelTask value)? syncDelTask,
+    TResult Function(_SyncTaskFromServer value)? syncTaskFromServer,
     required TResult orElse(),
   }) {
     if (syncTask != null) {
@@ -1296,6 +1392,308 @@ class _$SyncTaskImpl implements _SyncTask {
 
 abstract class _SyncTask implements TaskListEvent {
   const factory _SyncTask() = _$SyncTaskImpl;
+}
+
+/// @nodoc
+abstract class _$$SyncDelTaskImplCopyWith<$Res> {
+  factory _$$SyncDelTaskImplCopyWith(
+          _$SyncDelTaskImpl value, $Res Function(_$SyncDelTaskImpl) then) =
+      __$$SyncDelTaskImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SyncDelTaskImplCopyWithImpl<$Res>
+    extends _$TaskListEventCopyWithImpl<$Res, _$SyncDelTaskImpl>
+    implements _$$SyncDelTaskImplCopyWith<$Res> {
+  __$$SyncDelTaskImplCopyWithImpl(
+      _$SyncDelTaskImpl _value, $Res Function(_$SyncDelTaskImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TaskListEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$SyncDelTaskImpl implements _SyncDelTask {
+  const _$SyncDelTaskImpl();
+
+  @override
+  String toString() {
+    return 'TaskListEvent.syncDelTask()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SyncDelTaskImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() fetch,
+    required TResult Function(
+            String descriptionTask, String date, String firstTime)
+        createTask,
+    required TResult Function(int id) deleteTask,
+    required TResult Function(String? query) searchTask,
+    required TResult Function(String? filter) filteredTasks,
+    required TResult Function(int id, bool? stateTask) changeStateTask,
+    required TResult Function() syncTask,
+    required TResult Function() syncDelTask,
+    required TResult Function() syncTaskFromServer,
+  }) {
+    return syncDelTask();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? fetch,
+    TResult? Function(String descriptionTask, String date, String firstTime)?
+        createTask,
+    TResult? Function(int id)? deleteTask,
+    TResult? Function(String? query)? searchTask,
+    TResult? Function(String? filter)? filteredTasks,
+    TResult? Function(int id, bool? stateTask)? changeStateTask,
+    TResult? Function()? syncTask,
+    TResult? Function()? syncDelTask,
+    TResult? Function()? syncTaskFromServer,
+  }) {
+    return syncDelTask?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? fetch,
+    TResult Function(String descriptionTask, String date, String firstTime)?
+        createTask,
+    TResult Function(int id)? deleteTask,
+    TResult Function(String? query)? searchTask,
+    TResult Function(String? filter)? filteredTasks,
+    TResult Function(int id, bool? stateTask)? changeStateTask,
+    TResult Function()? syncTask,
+    TResult Function()? syncDelTask,
+    TResult Function()? syncTaskFromServer,
+    required TResult orElse(),
+  }) {
+    if (syncDelTask != null) {
+      return syncDelTask();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Fetch value) fetch,
+    required TResult Function(_CreateTask value) createTask,
+    required TResult Function(_DeleteTask value) deleteTask,
+    required TResult Function(_SearchTask value) searchTask,
+    required TResult Function(_FilteredTasks value) filteredTasks,
+    required TResult Function(_ChangeStateTask value) changeStateTask,
+    required TResult Function(_SyncTask value) syncTask,
+    required TResult Function(_SyncDelTask value) syncDelTask,
+    required TResult Function(_SyncTaskFromServer value) syncTaskFromServer,
+  }) {
+    return syncDelTask(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Fetch value)? fetch,
+    TResult? Function(_CreateTask value)? createTask,
+    TResult? Function(_DeleteTask value)? deleteTask,
+    TResult? Function(_SearchTask value)? searchTask,
+    TResult? Function(_FilteredTasks value)? filteredTasks,
+    TResult? Function(_ChangeStateTask value)? changeStateTask,
+    TResult? Function(_SyncTask value)? syncTask,
+    TResult? Function(_SyncDelTask value)? syncDelTask,
+    TResult? Function(_SyncTaskFromServer value)? syncTaskFromServer,
+  }) {
+    return syncDelTask?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Fetch value)? fetch,
+    TResult Function(_CreateTask value)? createTask,
+    TResult Function(_DeleteTask value)? deleteTask,
+    TResult Function(_SearchTask value)? searchTask,
+    TResult Function(_FilteredTasks value)? filteredTasks,
+    TResult Function(_ChangeStateTask value)? changeStateTask,
+    TResult Function(_SyncTask value)? syncTask,
+    TResult Function(_SyncDelTask value)? syncDelTask,
+    TResult Function(_SyncTaskFromServer value)? syncTaskFromServer,
+    required TResult orElse(),
+  }) {
+    if (syncDelTask != null) {
+      return syncDelTask(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SyncDelTask implements TaskListEvent {
+  const factory _SyncDelTask() = _$SyncDelTaskImpl;
+}
+
+/// @nodoc
+abstract class _$$SyncTaskFromServerImplCopyWith<$Res> {
+  factory _$$SyncTaskFromServerImplCopyWith(_$SyncTaskFromServerImpl value,
+          $Res Function(_$SyncTaskFromServerImpl) then) =
+      __$$SyncTaskFromServerImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SyncTaskFromServerImplCopyWithImpl<$Res>
+    extends _$TaskListEventCopyWithImpl<$Res, _$SyncTaskFromServerImpl>
+    implements _$$SyncTaskFromServerImplCopyWith<$Res> {
+  __$$SyncTaskFromServerImplCopyWithImpl(_$SyncTaskFromServerImpl _value,
+      $Res Function(_$SyncTaskFromServerImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TaskListEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$SyncTaskFromServerImpl implements _SyncTaskFromServer {
+  const _$SyncTaskFromServerImpl();
+
+  @override
+  String toString() {
+    return 'TaskListEvent.syncTaskFromServer()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SyncTaskFromServerImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() fetch,
+    required TResult Function(
+            String descriptionTask, String date, String firstTime)
+        createTask,
+    required TResult Function(int id) deleteTask,
+    required TResult Function(String? query) searchTask,
+    required TResult Function(String? filter) filteredTasks,
+    required TResult Function(int id, bool? stateTask) changeStateTask,
+    required TResult Function() syncTask,
+    required TResult Function() syncDelTask,
+    required TResult Function() syncTaskFromServer,
+  }) {
+    return syncTaskFromServer();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? fetch,
+    TResult? Function(String descriptionTask, String date, String firstTime)?
+        createTask,
+    TResult? Function(int id)? deleteTask,
+    TResult? Function(String? query)? searchTask,
+    TResult? Function(String? filter)? filteredTasks,
+    TResult? Function(int id, bool? stateTask)? changeStateTask,
+    TResult? Function()? syncTask,
+    TResult? Function()? syncDelTask,
+    TResult? Function()? syncTaskFromServer,
+  }) {
+    return syncTaskFromServer?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? fetch,
+    TResult Function(String descriptionTask, String date, String firstTime)?
+        createTask,
+    TResult Function(int id)? deleteTask,
+    TResult Function(String? query)? searchTask,
+    TResult Function(String? filter)? filteredTasks,
+    TResult Function(int id, bool? stateTask)? changeStateTask,
+    TResult Function()? syncTask,
+    TResult Function()? syncDelTask,
+    TResult Function()? syncTaskFromServer,
+    required TResult orElse(),
+  }) {
+    if (syncTaskFromServer != null) {
+      return syncTaskFromServer();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Fetch value) fetch,
+    required TResult Function(_CreateTask value) createTask,
+    required TResult Function(_DeleteTask value) deleteTask,
+    required TResult Function(_SearchTask value) searchTask,
+    required TResult Function(_FilteredTasks value) filteredTasks,
+    required TResult Function(_ChangeStateTask value) changeStateTask,
+    required TResult Function(_SyncTask value) syncTask,
+    required TResult Function(_SyncDelTask value) syncDelTask,
+    required TResult Function(_SyncTaskFromServer value) syncTaskFromServer,
+  }) {
+    return syncTaskFromServer(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Fetch value)? fetch,
+    TResult? Function(_CreateTask value)? createTask,
+    TResult? Function(_DeleteTask value)? deleteTask,
+    TResult? Function(_SearchTask value)? searchTask,
+    TResult? Function(_FilteredTasks value)? filteredTasks,
+    TResult? Function(_ChangeStateTask value)? changeStateTask,
+    TResult? Function(_SyncTask value)? syncTask,
+    TResult? Function(_SyncDelTask value)? syncDelTask,
+    TResult? Function(_SyncTaskFromServer value)? syncTaskFromServer,
+  }) {
+    return syncTaskFromServer?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Fetch value)? fetch,
+    TResult Function(_CreateTask value)? createTask,
+    TResult Function(_DeleteTask value)? deleteTask,
+    TResult Function(_SearchTask value)? searchTask,
+    TResult Function(_FilteredTasks value)? filteredTasks,
+    TResult Function(_ChangeStateTask value)? changeStateTask,
+    TResult Function(_SyncTask value)? syncTask,
+    TResult Function(_SyncDelTask value)? syncDelTask,
+    TResult Function(_SyncTaskFromServer value)? syncTaskFromServer,
+    required TResult orElse(),
+  }) {
+    if (syncTaskFromServer != null) {
+      return syncTaskFromServer(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SyncTaskFromServer implements TaskListEvent {
+  const factory _SyncTaskFromServer() = _$SyncTaskFromServerImpl;
 }
 
 /// @nodoc

@@ -165,7 +165,7 @@ class _MyAppState extends State<MyApp> {
     return MultiBlocProvider(
         providers: [
           BlocProvider<TaskListBloc>(
-            create: (context) => TaskListBloc()..add(const TaskListEvent.fetch()),
+            create: (context) => getIt<TaskListBloc>()..add(const TaskListEvent.fetch()),
           ),
           BlocProvider(create: (context) => CalendarListBloc(),
           ),

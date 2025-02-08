@@ -4,7 +4,7 @@ import '../../dto_s/task/task_response/task_response_dto.dart';
 
 part 'task_datasource.g.dart';
 
-@RestApi(baseUrl: 'http://192.168.65.195:8000/api/v1')
+@RestApi(baseUrl: 'http://192.168.229.195:8000/api/v1')
 abstract class TaskDatasource {
   factory TaskDatasource(Dio dio) = _TaskDatasource;
 
@@ -12,6 +12,16 @@ abstract class TaskDatasource {
   Future<TaskResponseDTO> pushTask(
       @Header("accept") String accept,
       @Header("Authorization") String authorization,
-      @Body() Map<String, dynamic> request,
-      );
+      @Body() Map<String, dynamic> request);
+  
+  @DELETE('/task/{id}')
+  Future<void> deleteTask(
+      @Header("accept") String accept,
+      @Header("Authorization") String authorization,
+      @Path('id') String id);
+
+  @GET('/task')
+  Future<List<TaskResponseDTO>> getAllTask(
+      @Header("accept") String accept,
+      @Header("Authorization") String authorization,);
 }

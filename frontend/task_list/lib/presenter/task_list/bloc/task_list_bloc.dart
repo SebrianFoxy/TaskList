@@ -29,22 +29,28 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
     on<_FilteredTasks>(_filteredTasks);
     on<_ChangeStateTask>(_changeStateTask);
     on<_SyncTask>(_syncTask);
+    on<_SyncDelTask>(_syncDelTask);
+    on<_SyncTaskFromServer>(_syncTaskFromServer);
   }
 
   String filter = 'Задачи на сегодня';
 
   _fetch(_Fetch event, Emitter<TaskListState> emit) async {
     emit(const TaskListState.loading());
-    final checkAuth = getIt<LoginBloc>().state == const LoginState.authenticated()
+    final checkAuth = getIt<LoginBloc>().state ==
+        const LoginState.authenticated()
         ? true
         : false;
-    try{
+    try {
       add(TaskListEvent.filteredTasks(filter: filter));
 
-      // Sync all not sync tasks
-      final List<ConnectivityResult> connectivityResult = await (Connectivity().checkConnectivity());
+      // Sync task and delete task from database
+      final List<ConnectivityResult> connectivityResult = await (Connectivity()
+          .checkConnectivity());
       if (!connectivityResult.contains(ConnectivityResult.none) && checkAuth) {
+        add(const TaskListEvent.syncDelTask());
         add(const TaskListEvent.syncTask());
+        add(const TaskListEvent.syncTaskFromServer());
       }
     } catch (e) {
       emit(TaskListState.error(error: e));
@@ -54,7 +60,8 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
 
   _createTask(_CreateTask event, Emitter<TaskListState> emit) async {
     final database = Database.instance;
-    final checkAuth = getIt<LoginBloc>().state == const LoginState.authenticated()
+    final checkAuth = getIt<LoginBloc>().state ==
+        const LoginState.authenticated()
         ? true
         : false;
     final dio = Dio(
@@ -62,20 +69,22 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
           connectTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 10),
         )
-    )..interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
-    try{
+    )
+      ..interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
+    try {
       final localTaskID = await database.into(database.tasks).insert(
           TasksCompanion.insert(
-              task: event.descriptionTask,
-              date: event.date,
-              firstTime: event.firstTime,
-              stateTask: true,
+            task: event.descriptionTask,
+            date: event.date,
+            firstTime: event.firstTime,
+            stateTask: true,
           )
       );
       add(TaskListEvent.filteredTasks(filter: filter));
 
       // Sync with database
-      final List<ConnectivityResult> connectivityResult = await (Connectivity().checkConnectivity());
+      final List<ConnectivityResult> connectivityResult = await (Connectivity()
+          .checkConnectivity());
       if (!connectivityResult.contains(ConnectivityResult.none) && checkAuth) {
         final token = await SecureStorage().readSecureData('accessToken');
         final TaskDatasource _taskDatasource = TaskDatasource(dio);
@@ -93,7 +102,6 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
         await database.addServerId(localTaskID, pushTask.serverID);
       }
     } catch (e) {
-
       emit(TaskListState.error(error: e));
       add(TaskListEvent.filteredTasks(filter: filter));
     }
@@ -102,11 +110,11 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
   _deleteTask(_DeleteTask event, Emitter<TaskListState> emit) async {
     final database = Database.instance;
     try {
-      await database.deleteTaskById(event.id);
-      add(TaskListEvent.filteredTasks(filter: filter));
+      await database.deleteOfMarkTask(event.id);
+      add(const TaskListEvent.fetch());
     } catch (e) {
       emit(TaskListState.error(error: e));
-      add(TaskListEvent.filteredTasks(filter: filter));
+      add(const TaskListEvent.fetch());
     }
   }
 
@@ -114,7 +122,8 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
     try {
       if (event.query!.isNotEmpty) {
         List<Task> tasks = state.tasks.cast<Task>();
-        List<Task> queryTask = tasks.where((t) => t.task.contains(event.query.toString())).toList();
+        List<Task> queryTask = tasks.where((t) =>
+            t.task.contains(event.query.toString())).toList();
         emit(TaskListState.successLoading(tasks: queryTask));
       }
       else {
@@ -161,13 +170,13 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
           connectTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 10),
         )
-    )..interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
-    try{
+    )
+      ..interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
+    try {
       final token = await SecureStorage().readSecureData('accessToken');
       final TaskDatasource _taskDatasource = TaskDatasource(dio);
-      final notSyncTask = await database.getTasksOnSync();
+      final notSyncTask = await database.getTasksOnPushSync();
       for (final task in notSyncTask) {
-        await database.syncTask(task.id);
         final pushTask = await _taskDatasource.pushTask(
           'application/json',
           'Bearer $token',
@@ -181,10 +190,75 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
         await database.syncTask(task.id);
         await database.addServerId(task.id, pushTask.serverID);
       }
-    } on DioException catch(error) {
+    } on DioException catch (error) {
+      print(error);
+    }
+  }
+
+  _syncDelTask(_SyncDelTask event, Emitter<TaskListState> emit) async {
+    final database = Database.instance;
+    final dio = Dio(
+        BaseOptions(
+          connectTimeout: const Duration(seconds: 10),
+          receiveTimeout: const Duration(seconds: 10),
+        )
+    )
+      ..interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
+    try {
+      final token = await SecureStorage().readSecureData('accessToken');
+      final TaskDatasource _taskDatasource = TaskDatasource(dio);
+      final notSyncDelTask = await database.getTasksOnDeleteSync();
+      for (final task in notSyncDelTask) {
+        if (task.serverId != null) {
+          await _taskDatasource.deleteTask(
+            'application/json',
+            'Bearer $token',
+            '${task.serverId}'
+          );
+          await database.deleteTaskById(task.id);
+        }
+        else{
+          await database.deleteTaskById(task.id);
+        }
+      }
+    } on DioException catch (error) {
+      print(error);
+    }
+  }
+
+  _syncTaskFromServer(_SyncTaskFromServer event, Emitter<TaskListState> emit) async {
+    final database = Database.instance;
+    final dio = Dio(
+        BaseOptions(
+          connectTimeout: const Duration(seconds: 10),
+          receiveTimeout: const Duration(seconds: 10),
+        )
+    )
+      ..interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
+    try{
+      final token = await SecureStorage().readSecureData('accessToken');
+      final TaskDatasource _taskDatasource = TaskDatasource(dio);
+      final getAllTask = await _taskDatasource.getAllTask(
+        'application/json',
+        'Bearer $token',
+      );
+      for (final task in getAllTask) {
+        final exists = await database.getTaskByServerId(task.serverID);
+        if (exists == null) {
+          final localTaskID = await database.into(database.tasks).insert(
+              TasksCompanion.insert(
+                task: task.task,
+                date: task.date,
+                firstTime: task.firstTime,
+                stateTask: task.stateTask,
+              ),
+          );
+          await database.syncTask(localTaskID);
+          await database.addServerId(localTaskID, task.serverID);
+        }
+      }
+    } on DioException catch (error) {
       print(error);
     }
   }
 }
-
-

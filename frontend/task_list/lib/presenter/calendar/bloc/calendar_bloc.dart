@@ -52,7 +52,7 @@ class CalendarListBloc extends Bloc<CalendarListEvent, CalendarListState> {
   _deleteTask(_DeleteTask event, Emitter<CalendarListState> emit) async {
     final database = Database.instance;
     try {
-      await database.deleteTaskById(event.id);
+      await database.deleteOfMarkTask(event.id);
       add(CalendarListEvent.fetch(taskThisDate: daySelect.toString()));
     } catch (e) {
       emit(CalendarListState.error(error: e));
