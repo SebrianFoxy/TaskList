@@ -34,7 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Профиль', style: TextStyle(fontWeight: FontWeight.bold),),
+                    const Text('Профиль', style: TextStyle(fontWeight: FontWeight.bold),),
                     IconButton(onPressed: () {
                       context.read<LoginBloc>().add(const LoginEvent.logout());
                     }, icon: const Icon(Icons.door_front_door_outlined))

@@ -51,6 +51,7 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
         add(const TaskListEvent.syncDelTask());
         add(const TaskListEvent.syncTask());
         add(const TaskListEvent.syncTaskFromServer());
+        add(TaskListEvent.filteredTasks(filter: filter));
       }
     } catch (e) {
       emit(TaskListState.error(error: e));

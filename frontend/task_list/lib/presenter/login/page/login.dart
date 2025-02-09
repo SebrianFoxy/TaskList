@@ -8,6 +8,7 @@ import '../../../core/ui/ui.dart';
 import 'package:flutter/gestures.dart';
 
 import '../../../main.dart';
+import '../../settings/theme/cubit/theme_cubit.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -44,130 +45,127 @@ class _LoginPageState extends State<LoginPage> {
         );
       },
       builder: (context, state) {
-        return Scaffold(
-          body: state.maybeWhen(
-              loading: () {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              },
-              orElse: () {
-                return Scaffold(
-                  appBar: AppBar(
-                    title: Center(
-                      child: Row(
-                        children: [
-                          IconButton(
-                            icon: const Icon(Icons.arrow_back),
-                            onPressed: () {
-                              context.goNamed(AppRoute.tasks.name);
+        return state.maybeWhen(
+            loading: () {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+            orElse: () {
+              return Scaffold(
+                appBar: AppBar(
+                  title: Center(
+                    child: Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.arrow_back),
+                          onPressed: () {
+                            context.goNamed(AppRoute.tasks.name);
+                          },
+                        ),
+                        const SizedBox(width: 80,),
+                        const Text('Авторизация'),
+                      ],
+                    ),
+                  ),
+                ),
+                body: SafeArea(
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                      top: 20,
+                      right: 20,
+                    ),
+                    decoration: BoxDecoration(
+                      color: context.read<ThemeCubit>().state.brightness == Brightness.dark ? Colors.black38 : Colors.white,
+                        borderRadius: const BorderRadius.only()
+                    ),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: <Widget>[
+                          TextFormField(
+                            decoration: const InputDecoration(
+                                prefixIcon: Icon(Icons.email),
+                                labelText: 'Почта'
+                            ),
+                            autocorrect: false,
+                            autofocus: false,
+                            keyboardType: TextInputType.emailAddress,
+                            controller: _emailController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Введите почту!';
+                              }
+                              final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+                              if (!emailRegex.hasMatch(value)) {
+                                return 'Введите корректный email';
+                              }
+                              return null;
                             },
                           ),
-                          const SizedBox(width: 80,),
-                          const Text('Авторизация'),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            decoration: const InputDecoration(
+                                prefixIcon: Icon(Icons.lock),
+                                labelText: 'Пароль'
+                            ),
+                            autocorrect: false,
+                            autofocus: false,
+                            obscureText: true,
+                            controller: _passwordController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Введите пароль!';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          CreateAccountButton(
+                            nameButton: 'Войти в аккаунт',
+                            onPressed: () {
+                              final checkValid = _formKey.currentState!.validate();
+                              if (checkValid) {
+                                context.read<LoginBloc>().add(LoginEvent.login(
+                                    email: _emailController.text,
+                                    password: _passwordController.text));
+                              }
+                            },
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              RichText(
+                                text: TextSpan(
+                                  text: 'Нет аккаунта? ',
+                                  style: TextStyle(color: context.read<ThemeCubit>().state.brightness == Brightness.dark ? Colors.white : Colors.black),
+                                  children: [
+                                    TextSpan(
+                                      text: 'Создать',
+                                      style: const TextStyle(color: Colors.blue,
+                                          fontWeight: FontWeight.bold),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          context.goNamed(AppRoute.registration.name);
+                                        },
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  body: SafeArea(
-                    child: Container(
-                      padding: const EdgeInsets.only(
-                        left: 20,
-                        top: 20,
-                        right: 20,
-                      ),
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                          )
-                      ),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          children: <Widget>[
-                            TextFormField(
-                              decoration: const InputDecoration(
-                                  prefixIcon: Icon(Icons.email),
-                                  labelText: 'Почта'
-                              ),
-                              autocorrect: false,
-                              autofocus: false,
-                              keyboardType: TextInputType.emailAddress,
-                              controller: _emailController,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Введите почту!';
-                                }
-                                final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
-                                if (!emailRegex.hasMatch(value)) {
-                                  return 'Введите корректный email';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextFormField(
-                              decoration: const InputDecoration(
-                                  prefixIcon: Icon(Icons.lock),
-                                  labelText: 'Пароль'
-                              ),
-                              autocorrect: false,
-                              autofocus: false,
-                              obscureText: true,
-                              controller: _passwordController,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Введите пароль!';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            CreateAccountButton(
-                              nameButton: 'Войти в аккаунт',
-                              onPressed: () {
-                                final checkValid = _formKey.currentState!.validate();
-                                if (checkValid) {
-                                  context.read<LoginBloc>().add(LoginEvent.login(
-                                      email: _emailController.text,
-                                      password: _passwordController.text));
-                                }
-                              },
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                RichText(
-                                  text: TextSpan(
-                                    text: 'Нет аккаунта? ',
-                                    style: const TextStyle(color: Colors.black),
-                                    children: [
-                                      TextSpan(
-                                        text: 'Создать',
-                                        style: const TextStyle(color: Colors.blue,
-                                            fontWeight: FontWeight.bold),
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () {
-                                            context.goNamed(AppRoute.registration.name);
-                                          },
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-            }
-          ),
+                ),
+              );
+          }
         );
       },
     );

@@ -54,6 +54,6 @@ class ProfileUnauthCard extends StatelessWidget {
           ),
         ),
       ),
-    );;
+    );
   }
 }

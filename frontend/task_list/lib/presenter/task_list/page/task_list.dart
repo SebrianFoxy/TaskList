@@ -91,6 +91,7 @@ class _TaskListPageState extends State<TaskListPage> {
                             DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
                                 value: _selectedItem,
+                                alignment: Alignment.centerRight,
                                 dropdownColor: context.read<ThemeCubit>().state.brightness == Brightness.dark ? Colors.black : Colors.white,
                                 icon: const Icon(Icons.arrow_drop_down),
                                 iconSize: 24,
@@ -104,14 +105,17 @@ class _TaskListPageState extends State<TaskListPage> {
                                     .map<DropdownMenuItem<String>>((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
-                                    child: Text(value, style: TextStyle(
-                                      color: Theme.of(context).colorScheme.onBackground,
-                                    )),
+                                    child: Row(
+                                      children: [
+                                        Text(value, style: TextStyle(
+                                          color: Theme.of(context).colorScheme.onBackground,
+                                        )),
+                                      ],
+                                    ),
                                   );
                                 }).toList(),
                                 borderRadius: BorderRadius.circular(10),
                                 itemHeight: 48,
-                                alignment: Alignment.center,
                               ),
                             ),
                           ],

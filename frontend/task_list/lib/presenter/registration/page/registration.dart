@@ -7,6 +7,8 @@ import 'package:task_manager_mobile/presenter/registration/bloc/registration_blo
 import '../../../core/ui/ui.dart';
 import 'package:flutter/gestures.dart';
 
+import '../../settings/theme/cubit/theme_cubit.dart';
+
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
 
@@ -59,8 +61,19 @@ class _RegistrationPageState extends State<RegistrationPage> {
             orElse: () {
               return Scaffold(
                 appBar: AppBar(
-                  title: const Center(
-                    child: Text('Регистрация'),
+                  title: Center(
+                    child: Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.arrow_back),
+                          onPressed: () {
+                            context.goNamed(AppRoute.tasks.name);
+                          },
+                        ),
+                        const SizedBox(width: 80,),
+                        const Text('Регистрация'),
+                      ],
+                    ),
                   ),
                 ),
                 body: SafeArea(
@@ -70,10 +83,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       top: 20,
                       right: 20,
                     ),
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                        )
+                    decoration: BoxDecoration(
+                        color: context.read<ThemeCubit>().state.brightness == Brightness.dark ? Colors.black38 : Colors.white,
+                        borderRadius: const BorderRadius.only()
                     ),
                     child: Form(
                       key: _formKey,
@@ -159,7 +171,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               RichText(
                                 text: TextSpan(
                                   text: 'Есть аккаунт? ',
-                                  style: const TextStyle(color: Colors.black),
+                                  style: TextStyle(color: context.read<ThemeCubit>().state.brightness == Brightness.dark ? Colors.white : Colors.black),
                                   children: [
                                     TextSpan(
                                       text: 'Авторизоваться',
