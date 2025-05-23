@@ -105,7 +105,7 @@ class TelegramCodeBloc extends Bloc<TelegramCodeEvent, TelegramCodeState> {
 
     try {
       _socket = IO.io(
-        'http://192.168.100.14:8000',
+        'http://192.168.25.195:8000',
         IO.OptionBuilder()
             .setTransports(['websocket'])
             .enableAutoConnect()

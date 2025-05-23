@@ -5,7 +5,7 @@ import '../../dto_s/telegram_code/telegram_code_response/telegram_code_response_
 
 part 'telegram_code_datasource.g.dart';
 
-@RestApi(baseUrl: 'http://192.168.100.5:8000/api/v1')
+@RestApi(baseUrl: 'http://192.168.25.195:8000/api/v1')
 abstract class TelegramCodeDatasource {
   factory TelegramCodeDatasource(Dio dio) = _TelegramCodeDatasource;
 

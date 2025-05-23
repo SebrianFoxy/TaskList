@@ -30,7 +30,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       if (getTelegramNotification == null) {
         final dio = Dio(
             BaseOptions(
-              connectTimeout: const Duration(seconds: 5),
+              connectTimeout: const Duration(seconds: 7),
               receiveTimeout: const Duration(seconds: 3),
             )
         )..interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
@@ -56,7 +56,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     } on DioException catch (e) {
       final error = ErrorHandler.handleDioError(e);
       emit(ProfileState.error(error: error));
-      emit(ProfileState.successLoading(telegramLinked: getTelegramNotification!));
+      if (getTelegramNotification == null) {
+        emit(const ProfileState.successLoading(telegramLinked: false));
+      }
+      else {
+        emit(ProfileState.successLoading(telegramLinked: getTelegramNotification!));
+      }
     }
   }
 

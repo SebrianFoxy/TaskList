@@ -6,7 +6,7 @@ import '../../dto_s/telegram_user/telegram_user_response/telegram_user_response_
 
 part 'user_datasource.g.dart';
 
-@RestApi(baseUrl: 'http://192.168.100.5:8000/api/v1')
+@RestApi(baseUrl: 'http://192.168.25.195:8000/api/v1')
 abstract class UserDatasource {
   factory UserDatasource(Dio dio) = _UserDatasource;
 

@@ -14,7 +14,7 @@ class _AuthDatasource implements AuthDatasource {
     this.baseUrl,
     this.errorLogger,
   }) {
-    baseUrl ??= 'http://192.168.100.5:8000/api/v1';
+    baseUrl ??= 'http://192.168.25.195:8000/api/v1';
   }
 
   final Dio _dio;
