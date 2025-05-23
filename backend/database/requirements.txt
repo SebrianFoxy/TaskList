@@ -1,4 +1,4 @@
-Flask==2.3.2
+Flask>=2.3.2
 Flask-SQLAlchemy==3.0.5
 Flask-Migrate==4.0.4
 Flask-RESTX==1.1.0
@@ -16,7 +16,7 @@ python-socketio==5.8.0
 eventlet==0.33.3
 redis>=5.2.1 
 itsdangerous==2.1.2
-Werkzeug==2.3.2
+Werkzeug>=2.3.2
 marshmallow==3.20.1
 marshmallow-sqlalchemy==0.24.1
 Jinja2==3.1.2
