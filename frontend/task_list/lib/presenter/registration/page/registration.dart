@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:task_manager_mobile/main.dart';
 import 'package:task_manager_mobile/presenter/registration/bloc/registration_bloc.dart';
@@ -28,15 +29,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
       listener: (context, state) {
         state.maybeWhen(
           failure: (message) {
-            AwesomeDialog(
-              context: context,
-              dialogType: DialogType.error,
-              animType: AnimType.bottomSlide,
-              title: 'Ошибка',
-              desc: message,
-              btnOkOnPress: () {},
-              btnOkColor: Colors.red,
-            ).show();
+            Fluttertoast.showToast(
+              msg: message,
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.grey[800],
+              textColor: Colors.white,
+              fontSize: 16.0,
+            );
           },
           success: () {
             AwesomeDialog(
@@ -61,19 +61,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
             orElse: () {
               return Scaffold(
                 appBar: AppBar(
-                  title: Center(
-                    child: Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.arrow_back),
-                          onPressed: () {
-                            context.goNamed(AppRoute.tasks.name);
-                          },
-                        ),
-                        const SizedBox(width: 80,),
-                        const Text('Регистрация'),
-                      ],
-                    ),
+                  title: Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () {
+                          context.goNamed(AppRoute.tasks.name);
+                        },
+                      ),
+                      const SizedBox(
+                        width: 80,
+                      ),
+                      const Center(
+                        child: Text('Регистрация'),
+                      ),
+                    ],
                   ),
                 ),
                 body: SafeArea(
@@ -83,9 +85,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       top: 20,
                       right: 20,
                     ),
-                    decoration: BoxDecoration(
-                        color: context.read<ThemeCubit>().state.brightness == Brightness.dark ? Colors.black38 : Colors.white,
-                        borderRadius: const BorderRadius.only()
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                        )
                     ),
                     child: Form(
                       key: _formKey,
@@ -170,8 +172,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             children: <Widget>[
                               RichText(
                                 text: TextSpan(
-                                  text: 'Есть аккаунт? ',
-                                  style: TextStyle(color: context.read<ThemeCubit>().state.brightness == Brightness.dark ? Colors.white : Colors.black),
+                                  text: 'Есть аккаунт? ',style: TextStyle(color: context.read<ThemeCubit>().state.brightness == Brightness.dark ? Colors.white : Colors.black),
                                   children: [
                                     TextSpan(
                                       text: 'Авторизоваться',

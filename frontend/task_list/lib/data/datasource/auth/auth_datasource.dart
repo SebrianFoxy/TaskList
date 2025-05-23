@@ -6,7 +6,7 @@ import '../../dto_s/registration/registration_response/registration_response_dto
 
 part 'auth_datasource.g.dart';
 
-@RestApi(baseUrl: 'http://192.168.229.195:8000/api/v1')
+@RestApi(baseUrl: 'http://192.168.25.195:8000/api/v1')
 abstract class AuthDatasource {
   factory AuthDatasource(Dio dio) = _AuthDatasource;
 

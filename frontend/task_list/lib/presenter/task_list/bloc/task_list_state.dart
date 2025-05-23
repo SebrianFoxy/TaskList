@@ -17,8 +17,13 @@ class TaskListState with _$TaskListState{
   }) = _TaskListStateLoading;
 
   const factory TaskListState.error({
-    @Default(<Task>[]) List<dynamic> tasks,
-    Object? error,
+    @Default('') String error,
   }) = _TaskListStateError;
 
+  List<dynamic> get tasks => when(
+    idle: (tasks) => tasks,
+    successLoading: (tasks) => tasks,
+    loading: (tasks) => tasks,
+    error: (_) => <Task>[],
+  );
 }

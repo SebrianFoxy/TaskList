@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:task_manager_mobile/main.dart';
 import 'package:task_manager_mobile/presenter/login/bloc/login_bloc.dart';
@@ -26,6 +27,16 @@ class _CheckAuthPageState extends State<CheckAuthPage> {
               },
               unauthenticated: () {
                 context.goNamed(AppRoute.tasks.name);
+              },
+              failure: (message) {
+                Fluttertoast.showToast(
+                  msg: message,
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  backgroundColor: Colors.grey[800],
+                  textColor: Colors.white,
+                  fontSize: 16.0,
+                );
               },
               orElse: () {
 

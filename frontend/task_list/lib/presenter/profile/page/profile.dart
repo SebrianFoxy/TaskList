@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager_mobile/presenter/login/bloc/login_bloc.dart';
@@ -24,7 +25,10 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
+        state.maybeWhen(
 
+            orElse: () {}
+        );
       },
       builder: (context, state) {
         return Scaffold(
@@ -36,7 +40,21 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     const Text('Профиль', style: TextStyle(fontWeight: FontWeight.bold),),
                     IconButton(onPressed: () {
-                      context.read<LoginBloc>().add(const LoginEvent.logout());
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.warning,
+                        animType: AnimType.topSlide,
+                        showCloseIcon: true,
+                        title: 'Внимания!',
+                        desc: 'Вы уверены, что хотите выйти с аккаунта?',
+                        btnCancelOnPress: () {
+                          context.read<LoginBloc>().add(const LoginEvent.logout());
+                        },
+                        btnOkOnPress: () {},
+                        btnCancelText: 'Выйти',
+                        btnOkText: 'Отмена',
+                      ).show();
+
                     }, icon: const Icon(Icons.door_front_door_outlined))
                   ],
                 ),

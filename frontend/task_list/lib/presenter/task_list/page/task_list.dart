@@ -1,4 +1,5 @@
 
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:task_manager_mobile/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,130 +37,145 @@ class _TaskListPageState extends State<TaskListPage> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: BlocBuilder<TaskListBloc, TaskListState>(
+      body: BlocConsumer<TaskListBloc, TaskListState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            error: (message) {
+              Fluttertoast.showToast(
+                msg: message,
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                backgroundColor: Colors.grey[800],
+                textColor: Colors.white,
+                fontSize: 16.0,
+              );
+            },
+              orElse: () {}
+          );
+        },
         builder: (context, state) {
-          return state.maybeWhen(
-              successLoading: (getTasks) {
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Center(
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 55),
-                              child: Center(
-                                child: TimeNow(),
-                              ),
-                            )
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SearchBar(
-                        controller: _searchTask,
-                        surfaceTintColor: MaterialStateProperty.all<Color>(Colors.white),
-                        onChanged: (value) {
-                          context.read<TaskListBloc>().add(TaskListEvent.searchTask(query: _searchTask.text.toString()));
-                        },
-                        hintText: 'Найти свою задачу',
-                        padding: const MaterialStatePropertyAll<EdgeInsets>(
-                            EdgeInsets.symmetric(horizontal: 16.0)),
-                        leading: const Icon(Icons.search),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                const Text('Мои задачи ',
-                                    style: TextStyle(
-                                        fontSize: 20, fontWeight: FontWeight.bold)),
-                                Text(getTasks.length.toString(),
-                                    style: const TextStyle(
-                                        fontSize: 20, fontWeight: FontWeight.w400)
-                                ),
-                              ],
-                            ),
-                            DropdownButtonHideUnderline(
-                              child: DropdownButton<String>(
-                                value: _selectedItem,
-                                alignment: Alignment.centerRight,
-                                dropdownColor: context.read<ThemeCubit>().state.brightness == Brightness.dark ? Colors.black : Colors.white,
-                                icon: const Icon(Icons.arrow_drop_down),
-                                iconSize: 24,
-                                elevation: 16,
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    _selectedItem = newValue!;
-                                  });
-                                },
-                                items: <String>['Задачи на сегодня', 'Все задачи']
-                                    .map<DropdownMenuItem<String>>((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Row(
-                                      children: [
-                                        Text(value, style: TextStyle(
-                                          color: Theme.of(context).colorScheme.onBackground,
-                                        )),
-                                      ],
-                                    ),
-                                  );
-                                }).toList(),
-                                borderRadius: BorderRadius.circular(10),
-                                itemHeight: 48,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    // ElevatedButton(onPressed: () async {
-                    //   NotificationService().checkPendingNotifications();
-                    // }, child: Text('Press')),
-                    Expanded(
-                      child: ListView.builder(
-                        padding: const EdgeInsets.only(bottom: 12),
-                        shrinkWrap: true,
-                        itemCount: getTasks.length,
-                        itemBuilder: (context, index) {
-                          return Column(
+          return BlocBuilder<TaskListBloc, TaskListState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                    successLoading: (getTasks) {
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              TaskCard(
-                                taskDescription: getTasks[index].task,
-                                firstTime: getTasks[index].firstTime,
-                                id: getTasks[index].id,
-                                stateTask: getTasks[index].stateTask,
-                                onPressedChangeState: () {
-                                  context.read<TaskListBloc>().add(TaskListEvent.changeStateTask(id: getTasks[index].id));
-                                },
-                                onPressedDeleteTask: () {
-                                  context.read<TaskListBloc>().add(TaskListEvent.deleteTask(id: getTasks[index].id));
-                                },
+                              Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 55),
+                                    child: Center(
+                                      child: TimeNow(),
+                                    ),
+                                  )
                               ),
-                              const SizedBox(height: 16,),
                             ],
-                          );
-                        },
-                      ),
-                    ),
-                  ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SearchBar(
+                              controller: _searchTask,
+                              surfaceTintColor: MaterialStateProperty.all<Color>(Colors.white),
+                              onChanged: (value) {
+                                context.read<TaskListBloc>().add(TaskListEvent.searchTask(query: _searchTask.text.toString()));
+                              },
+                              hintText: 'Найти свою задачу',
+                              padding: const MaterialStatePropertyAll<EdgeInsets>(
+                                  EdgeInsets.symmetric(horizontal: 16.0)),
+                              leading: const Icon(Icons.search),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      const Text('Мои задачи ',
+                                          style: TextStyle(
+                                              fontSize: 20, fontWeight: FontWeight.bold)),
+                                      Text(getTasks.length.toString(),
+                                          style: const TextStyle(
+                                              fontSize: 20, fontWeight: FontWeight.w400)
+                                      ),
+                                    ],
+                                  ),
+                                  DropdownButtonHideUnderline(
+                                    child: DropdownButton<String>(
+                                      value: _selectedItem,
+                                      dropdownColor: context.read<ThemeCubit>().state.brightness == Brightness.dark ? Colors.black : Colors.white,
+                                      icon: const Icon(Icons.arrow_drop_down),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      onChanged: (String? newValue) {
+                                        setState(() {
+                                          _selectedItem = newValue!;
+                                        });
+                                      },
+                                      items: <String>['Задачи на сегодня', 'Все задачи']
+                                          .map<DropdownMenuItem<String>>((String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value, style: TextStyle(
+                                            color: Theme.of(context).colorScheme.onBackground,
+                                          )),
+                                        );
+                                      }).toList(),
+                                      borderRadius: BorderRadius.circular(10),
+                                      itemHeight: 48,
+                                      alignment: Alignment.centerRight,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          // ElevatedButton(onPressed: () async {
+                          //   NotificationService().checkPendingNotifications();
+                          // }, child: Text('Press')),
+                          Expanded(
+                            child: ListView.builder(
+                              padding: const EdgeInsets.only(bottom: 12),
+                              shrinkWrap: true,
+                              itemCount: getTasks.length,
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: [
+                                    TaskCard(
+                                      taskDescription: getTasks[index].task,
+                                      firstTime: getTasks[index].firstTime,
+                                      id: getTasks[index].id,
+                                      stateTask: getTasks[index].stateTask,
+                                      onPressedChangeState: () {
+                                        context.read<TaskListBloc>().add(TaskListEvent.changeStateTask(id: getTasks[index].id));
+                                      },
+                                      onPressedDeleteTask: () {
+                                        context.read<TaskListBloc>().add(TaskListEvent.deleteTask(id: getTasks[index].id));
+                                      },
+                                    ),
+                                    const SizedBox(height: 16,),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                    orElse: () {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
                 );
               },
-              orElse: () {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-          );
+            );
         },
       ),
       floatingActionButton: DialogAddTask(),

@@ -4,7 +4,7 @@ import '../../dto_s/task/task_response/task_response_dto.dart';
 
 part 'task_datasource.g.dart';
 
-@RestApi(baseUrl: 'http://192.168.229.195:8000/api/v1')
+@RestApi(baseUrl: 'http://192.168.25.195:8000/api/v1')
 abstract class TaskDatasource {
   factory TaskDatasource(Dio dio) = _TaskDatasource;
 

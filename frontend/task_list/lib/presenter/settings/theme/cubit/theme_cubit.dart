@@ -24,9 +24,9 @@ class ThemeCubit extends Cubit<ThemeState> {
     }
   }
 
-  void _checkSelectedTheme() {
+  Future<void> _checkSelectedTheme() async {
     try {
-      final brightness = _settingsRepository.isDarkThemeSelected() ? Brightness.dark : Brightness.light;
+      final brightness = await _settingsRepository.isDarkThemeSelected() ? Brightness.dark : Brightness.light;
       emit(ThemeState(brightness));
     } on Exception catch (e) {
       log(e.toString());

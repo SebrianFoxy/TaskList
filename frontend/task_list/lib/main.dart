@@ -2,11 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager_mobile/presenter/calendar/bloc/calendar_bloc.dart';
 import 'package:task_manager_mobile/presenter/login/bloc/login_bloc.dart';
 import 'package:task_manager_mobile/presenter/login/page/check_auth.dart';
+import 'package:task_manager_mobile/presenter/profile/bloc/profile/profile_bloc.dart';
+import 'package:task_manager_mobile/presenter/profile/bloc/telegram_code/telegram_code_bloc.dart';
 import 'package:task_manager_mobile/presenter/profile/page/profile.dart';
 import 'package:task_manager_mobile/presenter/registration/bloc/registration_bloc.dart';
 import 'package:task_manager_mobile/presenter/registration/page/registration.dart';
@@ -16,6 +19,7 @@ import 'package:task_manager_mobile/presenter/settings/page/settings.dart';
 import 'package:task_manager_mobile/presenter/settings/theme/page/theme.dart';
 import 'package:task_manager_mobile/presenter/task_list/bloc/task_list_bloc.dart';
 import 'package:task_manager_mobile/service/get_it/service_locator.dart';
+import 'package:task_manager_mobile/service/shared_preferences/cache_service.dart';
 import 'presenter/task_list/page/task_list.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'core/utils/app_bloc_observer.dart';
@@ -26,12 +30,10 @@ import 'presenter/login/page/login.dart';
 
 Future <void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final prefs = await SharedPreferences.getInstance();
-
   Bloc.observer = SimpleBlocObserver();
   Bloc.transformer = bloc_concurrency.sequential();
-  initLocator();
-  runApp(MyApp(preferences: prefs));
+  await initLocator();
+  runApp(MyApp(cacheService: getIt<CacheService>()));
 }
 
 enum AppRoute {
@@ -149,9 +151,9 @@ final GoRouter _router = GoRouter(
 );
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key, required this.preferences});
+  const MyApp({super.key, required this.cacheService});
 
-  final SharedPreferences preferences;
+  final CacheService cacheService;
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -160,7 +162,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    final settingsRepository = SettingsRepository(preferences: widget.preferences);
+    final settingsRepository = SettingsRepository(cacheService: widget.cacheService);
     initializeDateFormatting('ru_RU');
     return MultiBlocProvider(
         providers: [
@@ -175,6 +177,10 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(create: (context) => getIt<LoginBloc>(),
           ),
           BlocProvider(create: (context) => RegistrationBloc(),
+          ),
+          BlocProvider(create: (context) => getIt<ProfileBloc>(),
+          ),
+          BlocProvider(create: (context) => TelegramCodeBloc(),
           ),
         ],
         child: BlocBuilder<ThemeCubit, ThemeState>(

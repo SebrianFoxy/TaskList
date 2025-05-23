@@ -21,7 +21,7 @@ final darkTheme = ThemeData(
       color: Colors.grey.withOpacity(0.1)
   ),
   colorScheme: ColorScheme.dark(
-    background: Colors.grey.shade900,
+    surface: Colors.grey.shade900,
     primary: Colors.white,
     secondary: Colors.grey,
     onBackground: Colors.white,
@@ -33,14 +33,15 @@ final lightTheme = ThemeData(
     useMaterial3: true,
     textTheme: _textTheme,
     primaryColor: _primaryColor,
-    scaffoldBackgroundColor: Colors.grey.shade300,
+    scaffoldBackgroundColor: Colors.grey.shade100,
     dividerTheme: DividerThemeData(
       color: Colors.black.withOpacity(0.2),
     ),
     colorScheme: ColorScheme.light(
-      background: Colors.grey.shade400,
+      surface: Colors.white,
       primary: Colors.black,
       secondary: Colors.white,
+      onSurface: Colors.black,
     )
 );
 

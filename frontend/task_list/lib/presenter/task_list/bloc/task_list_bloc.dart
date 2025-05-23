@@ -6,6 +6,7 @@ import 'dart:core';
 import 'package:meta/meta.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:task_manager_mobile/data/datasource/task/task_datasource.dart';
+import 'package:task_manager_mobile/data/dio_error_handler/error_handler.dart';
 import 'package:task_manager_mobile/data/drift/drift_database.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:task_manager_mobile/data/dto_s/task/task_request/task_request_dto.dart';
@@ -51,10 +52,10 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
         add(const TaskListEvent.syncDelTask());
         add(const TaskListEvent.syncTask());
         add(const TaskListEvent.syncTaskFromServer());
-        add(TaskListEvent.filteredTasks(filter: filter));
       }
-    } catch (e) {
-      emit(TaskListState.error(error: e));
+    } on DioException catch (e) {
+      final error = ErrorHandler.handleDioError(e);
+      emit(TaskListState.error(error: error));
       rethrow;
     }
   }
@@ -102,8 +103,9 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
         await database.syncTask(localTaskID);
         await database.addServerId(localTaskID, pushTask.serverID);
       }
-    } catch (e) {
-      emit(TaskListState.error(error: e));
+    } on DioException catch (e) {
+      final error = ErrorHandler.handleDioError(e);
+      emit(TaskListState.error(error: error));
       add(TaskListEvent.filteredTasks(filter: filter));
     }
   }
@@ -113,8 +115,9 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
     try {
       await database.deleteOfMarkTask(event.id);
       add(const TaskListEvent.fetch());
-    } catch (e) {
-      emit(TaskListState.error(error: e));
+    } on DioException catch (e) {
+      final error = ErrorHandler.handleDioError(e);
+      emit(TaskListState.error(error: error));
       add(const TaskListEvent.fetch());
     }
   }
@@ -130,8 +133,9 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
       else {
         add(TaskListEvent.filteredTasks(filter: filter));
       }
-    } catch (e) {
-      emit(TaskListState.error(error: e));
+    } on DioException catch (e) {
+      final error = ErrorHandler.handleDioError(e);
+      emit(TaskListState.error(error: error));
       add(TaskListEvent.filteredTasks(filter: filter));
     }
   }
@@ -148,8 +152,9 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
         List<Task> getTasks = await database.taskOfDay();
         emit(TaskListState.successLoading(tasks: getTasks));
       }
-    } catch (e) {
-      emit(TaskListState.error(error: e));
+    } on DioException catch (e) {
+      final error = ErrorHandler.handleDioError(e);
+      emit(TaskListState.error(error: error));
     }
   }
 
@@ -158,8 +163,9 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
     try {
       await database.toggleTaskState(event.id);
       add(TaskListEvent.filteredTasks(filter: filter));
-    } catch (e) {
-      emit(TaskListState.error(error: e));
+    } on DioException catch (e) {
+      final error = ErrorHandler.handleDioError(e);
+      emit(TaskListState.error(error: error));
       add(TaskListEvent.filteredTasks(filter: filter));
     }
   }
@@ -191,8 +197,10 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
         await database.syncTask(task.id);
         await database.addServerId(task.id, pushTask.serverID);
       }
-    } on DioException catch (error) {
-      print(error);
+    } on DioException catch (e) {
+      final error = ErrorHandler.handleDioError(e);
+      emit(TaskListState.error(error: error));
+      add(TaskListEvent.filteredTasks(filter: filter));
     }
   }
 
@@ -211,19 +219,25 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
       final notSyncDelTask = await database.getTasksOnDeleteSync();
       for (final task in notSyncDelTask) {
         if (task.serverId != null) {
-          await _taskDatasource.deleteTask(
-            'application/json',
-            'Bearer $token',
-            '${task.serverId}'
-          );
-          await database.deleteTaskById(task.id);
+          try {
+            await _taskDatasource.deleteTask(
+              'application/json',
+              'Bearer $token',
+              '${task.serverId}',
+            );
+          } on DioException catch (e) {
+            if (e.response?.statusCode != 404) {
+              rethrow;
+            }
+            debugPrint('Задача уже удалена на сервере: ${task.serverId}');
+          }
         }
-        else{
-          await database.deleteTaskById(task.id);
-        }
+        await database.deleteTaskById(task.id);
       }
-    } on DioException catch (error) {
-      print(error);
+    } on DioException catch (e) {
+      final error = ErrorHandler.handleDioError(e);
+      emit(TaskListState.error(error: error));
+      add(TaskListEvent.filteredTasks(filter: filter));
     }
   }
 
@@ -258,8 +272,10 @@ class TaskListBloc extends Bloc<TaskListEvent, TaskListState> {
           await database.addServerId(localTaskID, task.serverID);
         }
       }
-    } on DioException catch (error) {
-      print(error);
+    } on DioException catch (e) {
+      final error = ErrorHandler.handleDioError(e);
+      emit(TaskListState.error(error: error));
+      add(TaskListEvent.filteredTasks(filter: filter));
     }
   }
 }

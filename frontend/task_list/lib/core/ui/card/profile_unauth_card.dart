@@ -24,9 +24,10 @@ class ProfileUnauthCard extends StatelessWidget {
                     child: Column(
                       children: [
                         const Text(
-                          'Вы не авторизованы!',
+                          'Нет интернет соединения или вы не авторизованы!',
                           style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                              fontSize: 18, fontWeight: FontWeight.bold, ),
+                          textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 6,),
                         Row(

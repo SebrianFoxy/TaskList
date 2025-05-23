@@ -1698,13 +1698,12 @@ abstract class _SyncTaskFromServer implements TaskListEvent {
 
 /// @nodoc
 mixin _$TaskListState {
-  List<dynamic> get tasks => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<dynamic> tasks) idle,
     required TResult Function(List<dynamic> tasks) successLoading,
     required TResult Function(List<dynamic> tasks) loading,
-    required TResult Function(List<dynamic> tasks, Object? error) error,
+    required TResult Function(String error) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1712,7 +1711,7 @@ mixin _$TaskListState {
     TResult? Function(List<dynamic> tasks)? idle,
     TResult? Function(List<dynamic> tasks)? successLoading,
     TResult? Function(List<dynamic> tasks)? loading,
-    TResult? Function(List<dynamic> tasks, Object? error)? error,
+    TResult? Function(String error)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1720,7 +1719,7 @@ mixin _$TaskListState {
     TResult Function(List<dynamic> tasks)? idle,
     TResult Function(List<dynamic> tasks)? successLoading,
     TResult Function(List<dynamic> tasks)? loading,
-    TResult Function(List<dynamic> tasks, Object? error)? error,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1750,12 +1749,6 @@ mixin _$TaskListState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
-  /// Create a copy of TaskListState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $TaskListStateCopyWith<TaskListState> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1763,8 +1756,6 @@ abstract class $TaskListStateCopyWith<$Res> {
   factory $TaskListStateCopyWith(
           TaskListState value, $Res Function(TaskListState) then) =
       _$TaskListStateCopyWithImpl<$Res, TaskListState>;
-  @useResult
-  $Res call({List<dynamic> tasks});
 }
 
 /// @nodoc
@@ -1779,27 +1770,13 @@ class _$TaskListStateCopyWithImpl<$Res, $Val extends TaskListState>
 
   /// Create a copy of TaskListState
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? tasks = null,
-  }) {
-    return _then(_value.copyWith(
-      tasks: null == tasks
-          ? _value.tasks
-          : tasks // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$TaskListStateIdleImplCopyWith<$Res>
-    implements $TaskListStateCopyWith<$Res> {
+abstract class _$$TaskListStateIdleImplCopyWith<$Res> {
   factory _$$TaskListStateIdleImplCopyWith(_$TaskListStateIdleImpl value,
           $Res Function(_$TaskListStateIdleImpl) then) =
       __$$TaskListStateIdleImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({List<dynamic> tasks});
 }
@@ -1876,7 +1853,7 @@ class _$TaskListStateIdleImpl extends _TaskListStateIdle {
     required TResult Function(List<dynamic> tasks) idle,
     required TResult Function(List<dynamic> tasks) successLoading,
     required TResult Function(List<dynamic> tasks) loading,
-    required TResult Function(List<dynamic> tasks, Object? error) error,
+    required TResult Function(String error) error,
   }) {
     return idle(tasks);
   }
@@ -1887,7 +1864,7 @@ class _$TaskListStateIdleImpl extends _TaskListStateIdle {
     TResult? Function(List<dynamic> tasks)? idle,
     TResult? Function(List<dynamic> tasks)? successLoading,
     TResult? Function(List<dynamic> tasks)? loading,
-    TResult? Function(List<dynamic> tasks, Object? error)? error,
+    TResult? Function(String error)? error,
   }) {
     return idle?.call(tasks);
   }
@@ -1898,7 +1875,7 @@ class _$TaskListStateIdleImpl extends _TaskListStateIdle {
     TResult Function(List<dynamic> tasks)? idle,
     TResult Function(List<dynamic> tasks)? successLoading,
     TResult Function(List<dynamic> tasks)? loading,
-    TResult Function(List<dynamic> tasks, Object? error)? error,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (idle != null) {
@@ -1951,25 +1928,21 @@ abstract class _TaskListStateIdle extends TaskListState {
       _$TaskListStateIdleImpl;
   const _TaskListStateIdle._() : super._();
 
-  @override
   List<dynamic> get tasks;
 
   /// Create a copy of TaskListState
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TaskListStateIdleImplCopyWith<_$TaskListStateIdleImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$TaskListStateSuccessLoadingImplCopyWith<$Res>
-    implements $TaskListStateCopyWith<$Res> {
+abstract class _$$TaskListStateSuccessLoadingImplCopyWith<$Res> {
   factory _$$TaskListStateSuccessLoadingImplCopyWith(
           _$TaskListStateSuccessLoadingImpl value,
           $Res Function(_$TaskListStateSuccessLoadingImpl) then) =
       __$$TaskListStateSuccessLoadingImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({List<dynamic> tasks});
 }
@@ -2046,7 +2019,7 @@ class _$TaskListStateSuccessLoadingImpl extends _TaskListStateSuccessLoading {
     required TResult Function(List<dynamic> tasks) idle,
     required TResult Function(List<dynamic> tasks) successLoading,
     required TResult Function(List<dynamic> tasks) loading,
-    required TResult Function(List<dynamic> tasks, Object? error) error,
+    required TResult Function(String error) error,
   }) {
     return successLoading(tasks);
   }
@@ -2057,7 +2030,7 @@ class _$TaskListStateSuccessLoadingImpl extends _TaskListStateSuccessLoading {
     TResult? Function(List<dynamic> tasks)? idle,
     TResult? Function(List<dynamic> tasks)? successLoading,
     TResult? Function(List<dynamic> tasks)? loading,
-    TResult? Function(List<dynamic> tasks, Object? error)? error,
+    TResult? Function(String error)? error,
   }) {
     return successLoading?.call(tasks);
   }
@@ -2068,7 +2041,7 @@ class _$TaskListStateSuccessLoadingImpl extends _TaskListStateSuccessLoading {
     TResult Function(List<dynamic> tasks)? idle,
     TResult Function(List<dynamic> tasks)? successLoading,
     TResult Function(List<dynamic> tasks)? loading,
-    TResult Function(List<dynamic> tasks, Object? error)? error,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (successLoading != null) {
@@ -2121,24 +2094,20 @@ abstract class _TaskListStateSuccessLoading extends TaskListState {
       {required final List<dynamic> tasks}) = _$TaskListStateSuccessLoadingImpl;
   const _TaskListStateSuccessLoading._() : super._();
 
-  @override
   List<dynamic> get tasks;
 
   /// Create a copy of TaskListState
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TaskListStateSuccessLoadingImplCopyWith<_$TaskListStateSuccessLoadingImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$TaskListStateLoadingImplCopyWith<$Res>
-    implements $TaskListStateCopyWith<$Res> {
+abstract class _$$TaskListStateLoadingImplCopyWith<$Res> {
   factory _$$TaskListStateLoadingImplCopyWith(_$TaskListStateLoadingImpl value,
           $Res Function(_$TaskListStateLoadingImpl) then) =
       __$$TaskListStateLoadingImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({List<dynamic> tasks});
 }
@@ -2216,7 +2185,7 @@ class _$TaskListStateLoadingImpl extends _TaskListStateLoading {
     required TResult Function(List<dynamic> tasks) idle,
     required TResult Function(List<dynamic> tasks) successLoading,
     required TResult Function(List<dynamic> tasks) loading,
-    required TResult Function(List<dynamic> tasks, Object? error) error,
+    required TResult Function(String error) error,
   }) {
     return loading(tasks);
   }
@@ -2227,7 +2196,7 @@ class _$TaskListStateLoadingImpl extends _TaskListStateLoading {
     TResult? Function(List<dynamic> tasks)? idle,
     TResult? Function(List<dynamic> tasks)? successLoading,
     TResult? Function(List<dynamic> tasks)? loading,
-    TResult? Function(List<dynamic> tasks, Object? error)? error,
+    TResult? Function(String error)? error,
   }) {
     return loading?.call(tasks);
   }
@@ -2238,7 +2207,7 @@ class _$TaskListStateLoadingImpl extends _TaskListStateLoading {
     TResult Function(List<dynamic> tasks)? idle,
     TResult Function(List<dynamic> tasks)? successLoading,
     TResult Function(List<dynamic> tasks)? loading,
-    TResult Function(List<dynamic> tasks, Object? error)? error,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -2291,26 +2260,22 @@ abstract class _TaskListStateLoading extends TaskListState {
       _$TaskListStateLoadingImpl;
   const _TaskListStateLoading._() : super._();
 
-  @override
   List<dynamic> get tasks;
 
   /// Create a copy of TaskListState
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TaskListStateLoadingImplCopyWith<_$TaskListStateLoadingImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$TaskListStateErrorImplCopyWith<$Res>
-    implements $TaskListStateCopyWith<$Res> {
+abstract class _$$TaskListStateErrorImplCopyWith<$Res> {
   factory _$$TaskListStateErrorImplCopyWith(_$TaskListStateErrorImpl value,
           $Res Function(_$TaskListStateErrorImpl) then) =
       __$$TaskListStateErrorImplCopyWithImpl<$Res>;
-  @override
   @useResult
-  $Res call({List<dynamic> tasks, Object? error});
+  $Res call({String error});
 }
 
 /// @nodoc
@@ -2326,15 +2291,13 @@ class __$$TaskListStateErrorImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? tasks = null,
-    Object? error = freezed,
+    Object? error = null,
   }) {
     return _then(_$TaskListStateErrorImpl(
-      tasks: null == tasks
-          ? _value._tasks
-          : tasks // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
-      error: freezed == error ? _value.error : error,
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -2342,26 +2305,15 @@ class __$$TaskListStateErrorImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$TaskListStateErrorImpl extends _TaskListStateError {
-  const _$TaskListStateErrorImpl(
-      {final List<dynamic> tasks = const <Task>[], this.error})
-      : _tasks = tasks,
-        super._();
+  const _$TaskListStateErrorImpl({this.error = ''}) : super._();
 
-  final List<dynamic> _tasks;
   @override
   @JsonKey()
-  List<dynamic> get tasks {
-    if (_tasks is EqualUnmodifiableListView) return _tasks;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_tasks);
-  }
-
-  @override
-  final Object? error;
+  final String error;
 
   @override
   String toString() {
-    return 'TaskListState.error(tasks: $tasks, error: $error)';
+    return 'TaskListState.error(error: $error)';
   }
 
   @override
@@ -2369,15 +2321,11 @@ class _$TaskListStateErrorImpl extends _TaskListStateError {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TaskListStateErrorImpl &&
-            const DeepCollectionEquality().equals(other._tasks, _tasks) &&
-            const DeepCollectionEquality().equals(other.error, error));
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_tasks),
-      const DeepCollectionEquality().hash(error));
+  int get hashCode => Object.hash(runtimeType, error);
 
   /// Create a copy of TaskListState
   /// with the given fields replaced by the non-null parameter values.
@@ -2394,9 +2342,9 @@ class _$TaskListStateErrorImpl extends _TaskListStateError {
     required TResult Function(List<dynamic> tasks) idle,
     required TResult Function(List<dynamic> tasks) successLoading,
     required TResult Function(List<dynamic> tasks) loading,
-    required TResult Function(List<dynamic> tasks, Object? error) error,
+    required TResult Function(String error) error,
   }) {
-    return error(tasks, this.error);
+    return error(this.error);
   }
 
   @override
@@ -2405,9 +2353,9 @@ class _$TaskListStateErrorImpl extends _TaskListStateError {
     TResult? Function(List<dynamic> tasks)? idle,
     TResult? Function(List<dynamic> tasks)? successLoading,
     TResult? Function(List<dynamic> tasks)? loading,
-    TResult? Function(List<dynamic> tasks, Object? error)? error,
+    TResult? Function(String error)? error,
   }) {
-    return error?.call(tasks, this.error);
+    return error?.call(this.error);
   }
 
   @override
@@ -2416,11 +2364,11 @@ class _$TaskListStateErrorImpl extends _TaskListStateError {
     TResult Function(List<dynamic> tasks)? idle,
     TResult Function(List<dynamic> tasks)? successLoading,
     TResult Function(List<dynamic> tasks)? loading,
-    TResult Function(List<dynamic> tasks, Object? error)? error,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(tasks, this.error);
+      return error(this.error);
     }
     return orElse();
   }
@@ -2465,18 +2413,14 @@ class _$TaskListStateErrorImpl extends _TaskListStateError {
 }
 
 abstract class _TaskListStateError extends TaskListState {
-  const factory _TaskListStateError(
-      {final List<dynamic> tasks,
-      final Object? error}) = _$TaskListStateErrorImpl;
+  const factory _TaskListStateError({final String error}) =
+      _$TaskListStateErrorImpl;
   const _TaskListStateError._() : super._();
 
-  @override
-  List<dynamic> get tasks;
-  Object? get error;
+  String get error;
 
   /// Create a copy of TaskListState
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TaskListStateErrorImplCopyWith<_$TaskListStateErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
