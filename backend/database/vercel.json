@@ -6,9 +6,4 @@
     "routes": [
         {"src": "/(.*)", "dest": "app.py"}
     ],
-    "functions": {
-    "api/**": {
-      "includeFiles": ["api/**", "!__pycache__", "!tests", "!*.log"]
-    }
-  }
 }
