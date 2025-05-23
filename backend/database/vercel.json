@@ -1,7 +1,8 @@
 {
     "version" : 2,
+    "framework": "python311"
     "builds": [
-        {"src": "app.py", "use": "@vercel/python", "config": {"runtime": "python3.11"}}
+        {"src": "app.py", "use": "@vercel/python"}
     ],
     "routes": [
         {"src": "/(.*)", "dest": "app.py"}
