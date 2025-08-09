@@ -1,4 +1,9 @@
-# 📝 TaskList — Менеджер задач
+# 📝 TaskList — Task Manager [`RU`](README.md) | [`EN`](README_EN.md)
+
+<p align="right">
+  <a href="README.md">RU</a> | 
+  <a href="README_EN.md">EN</a>
+</p>
 
 Менеджер задач для мобильных устройств, созданный с использованием:
 - **Flutter, Dart** — frontend
